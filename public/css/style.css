@@ -1,0 +1,378 @@
+/* Body pakai flex untuk center */
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* hilangkan scroll */
+  font-family: sans-serif;
+}
+
+/* Background video */
+#bg-video {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1;
+  object-fit: cover;
+}
+
+/* Music control */
+.music-control {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 22px;
+  cursor: pointer;
+  color: #fff;
+  z-index: 10;
+  background: rgba(0,0,0,0.5);
+  padding: 8px 14px;
+  border-radius: 30px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+  transition: background 0.3s;
+}
+
+.music-control:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+/* Judul lagu berjalan */
+.song-title {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 150px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #ffde59;
+  position: relative;
+}
+
+.song-title span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: scrollText 10s linear infinite;
+}
+
+@keyframes scrollText {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+/* Container utama */
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  max-width: 800px;
+  padding: 40px;
+  background: rgba(0, 0, 0, 0.85); /* kotak hitam semi transparan */
+  border-radius: 20px;
+  color: white;
+  box-shadow: 0 0 20px rgba(0,0,0,0.7);
+}
+
+/* Responsive nav */
+nav {
+  text-align: left;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap; /* biar turun ke bawah kalau kepanjangan */
+}
+
+nav button {
+  text-align: left;
+  background: #111;
+  color: white;
+  border: 2px solid #fff;
+  border-radius: 25px;
+  padding: 10px 100px;   /* <- tambah lebar */
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 140px;     /* <- tambah lebar minimal */
+}
+
+nav button:hover {
+  background: white;
+  color: black;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+nav button:active {
+  transform: scale(0.95);
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  nav {
+    gap: 10px;
+  }
+  nav button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+
+/* HP */
+@media (max-width: 480px) {
+  nav {
+    flex-direction: column; /* tombol jadi vertikal */
+  }
+  nav button {
+    width: 80%; /* tombol lebih lebar di hp */
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+
+/* Bagian kanan (foto) */
+.profile-box {
+  position: relative;
+  display: inline-block;
+}
+.profile-box img {
+  width: 250px;
+  border-radius: 15px;
+}
+/* .profile-box .decoration {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 30px;
+} */
+
+/* Profile box dengan foto ganda */
+.profile-box {
+  position: relative;
+  display: inline-block;
+}
+
+/* Foto utama */
+.profile-box img {
+  width: 250px;
+  border-radius: 20px;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+/* Foto bayangan belakang */
+.profile-box::before {
+  content: "";
+  position: absolute;
+  left: 15px;  /* geser kanan */
+  width: 100%;
+  height: 100%;
+  background: url("/img/ningning.jpeg") no-repeat center/cover;
+  border-radius: 20px;
+  z-index: 1;
+  transform: rotate(2deg); /* sedikit miring biar kelihatan split */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+
+/* Container menu sosial */
+.social-menu {
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  z-index: 5;
+}
+
+/* Tombol utama */
+.main-btn {
+  background: #000;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 5;
+  position: relative;
+}
+
+/* List icon sosmed */
+.social-list {
+  display: flex;
+  flex-direction: row-reverse; /* biar keluar ke kiri */
+  align-items: center;
+  max-width: 0;
+  overflow: hidden;
+  transition: max-width 0.6s ease;
+}
+
+/* Saat active → expand */
+.social-menu.active .social-list {
+  max-width: 400px; /* cukup panjang buat 4 icon */
+}
+
+/* Style tiap icon sosmed */
+.social {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black;
+  color: white;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin: 0 5px;
+  text-decoration: none;
+  font-weight: bold;
+  opacity: 0;
+  transform: translateX(30px);
+  transition: all 0.4s ease;
+}
+
+/* Efek muncul + animasi geser */
+.social-menu.active .social {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Kasih animasi delay biar satu-satu muncul */
+.social-list .social:nth-child(1) { transition-delay: 0.1s; }
+.social-list .social:nth-child(2) { transition-delay: 0.2s; }
+.social-list .social:nth-child(3) { transition-delay: 0.3s; }
+.social-list .social:nth-child(4) { transition-delay: 0.4s; }
+
+/* Warna khusus */
+.ig { background: #E1306C; }
+.github { background: #333; }
+.telegram { background: #0088cc; }
+.tiktok { background: #000; }
+
+/* Bagian kiri (gambar portofolio) */
+.left img {
+  max-width: 300px;   /* atur lebar maksimal */
+  height: auto;       /* biar tidak ketarik */
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .left img {
+    max-width: 150px; /* lebih kecil di layar hp/tablet */
+  }
+}
+
+.profile-name {
+  margin-top: 12px;
+  margin-left: 4px;
+  font-size: 1.2rem;
+  color: #fff;
+  letter-spacing: 1px;
+  font-weight: bold;
+
+  /* Gradient warna-warni */
+  background: linear-gradient(270deg, #ff6ec7, #ffde59, #00c9ff, #92fe9d, #ff6ec7);
+  background-size: 600% 600%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbowText 8s ease infinite;
+}
+
+/* Animasi pelangi */
+@keyframes rainbowText {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.love-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #ff4d6d;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+  z-index: 30;
+}
+.love-btn:hover {
+  transform: scale(1.1);
+}
+
+.love-btn svg {
+  width: 28px;
+  height: 28px;
+  fill: #fff;
+}
+
+.love-container {
+  position: fixed;
+  bottom: 80px;
+  right: 40px;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.love {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  animation: floatLove 3s ease-out forwards;
+}
+
+.love svg {
+  width: 24px;
+  height: 24px;
+}
+
+@keyframes floatLove {
+  0% {
+    transform: translateY(0) scale(0.8);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-120px) scale(1.2);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-240px) scale(0.7);
+    opacity: 0;
+  }
+}
+
+.love-counter {
+  position: fixed;
+  bottom: 35px;
+  right: 90px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ff4d6d;
+  background: rgba(255,255,255,0.15);
+  padding: 4px 10px;
+  border-radius: 12px;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  animation: popIn 0.3s ease;
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.6); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+

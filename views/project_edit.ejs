@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/form.css">
+</head>
+<body>
+  <h1>Edit Project</h1>
+
+  <form action="/project/edit/<%= project._id %>" method="POST" enctype="multipart/form-data">
+    <label>Judul Project</label><br>
+    <input type="text" name="title" value="<%= project.title %>" required><br><br>
+
+    <label>GitHub URL</label><br>
+    <input type="url" name="github_url" value="<%= project.github_url %>"><br><br>
+
+    <label>Demo URL</label><br>
+    <input type="url" name="demo_url" value="<%= project.demo_url %>"><br><br>
+
+    <label>Extra URL</label><br>
+    <input type="url" name="extra_url" value="<%= project.extra_url %>"><br><br>
+
+    <label>Thumbnail</label><br>
+    <% if (project.thumbnail) { %>
+      <img src="<%= project.thumbnail %>" alt="<%= project.title %>" width="120"><br>
+    <% } %>
+    <input type="file" name="thumbnail" accept="image/*"><br><br>
+
+    <button type="submit">Update</button>
+  </form>
+
+  <p><a href="/intro">← Kembali ke Intro</a></p>
+</body>
+</html>

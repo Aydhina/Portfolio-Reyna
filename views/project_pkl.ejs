@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Projek PKL — Datasoft Solusi Indonesia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+</head>
+<style>
+/* GLOBAL */
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: radial-gradient(circle at top left, #0f0f0f, #000);
+  color: #f5f5f5;
+  line-height: 1.8;
+}
+
+/* HERO */
+.hero {
+  background: linear-gradient(135deg, #800000, #000000);
+  padding: 6rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%);
+  animation: shine 6s linear infinite;
+}
+@keyframes shine {
+  0% { transform: translateX(-100%) rotate(25deg); }
+  100% { transform: translateX(200%) rotate(25deg); }
+}
+.hero h1 {
+  font-family: "Merriweather", serif;
+  font-size: 3.5rem;
+  margin: 0 0 1rem;
+  color: #fff;
+  letter-spacing: 2px;
+}
+.hero p {
+  font-size: 1.3rem;
+  max-width: 750px;
+  margin: auto;
+  opacity: 0.95;
+  line-height: 1.9;
+}
+.hero span {
+  color: #ffb3b3;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(255, 179, 179, 0.6);
+}
+
+/* NAV TAB */
+.month-nav {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background: rgba(20,20,20,0.8);
+  padding: 0.7rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px);
+}
+.month-nav ul {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.month-nav a {
+  color: #ddd;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+}
+.month-nav a:hover {
+  color: #fff;
+  background: linear-gradient(135deg, #a30000, #ff3333);
+  box-shadow: 0 0 12px rgba(255, 80, 80, 0.5);
+}
+.month-nav a.active {
+  color: #fff;
+  background: linear-gradient(135deg, #b30000, #ff4d4d);
+  box-shadow: 0 0 15px rgba(255, 77, 77, 0.6);
+}
+
+/* TIMELINE */
+.timeline {
+  max-width: 1200px;
+  margin: auto;
+  padding: 4rem 1.5rem;
+}
+.month h2 {
+  font-size: 2.2rem;
+  color: #ff9999;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+}
+.month h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 50%;
+  height: 3px;
+  background: linear-gradient(90deg, #ff4d4d, transparent);
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+.month h2:hover::after {
+  width: 100%;
+}
+
+/* CARD */
+.card {
+  flex-direction: column; /* selalu column, bukan row */
+  text-align: center;     /* biar rapi */
+  gap: 2rem;
+  padding: 2rem;
+  background: rgba(26,26,26,0.85);
+  border-radius: 18px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+  backdrop-filter: blur(10px);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.card .desc {
+  text-align: justify; /* kalau mau rata kiri-kanan biar enak dibaca */
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.02);
+  /* Hanya bayangan natural, tanpa glow merah */
+  box-shadow: 0 14px 30px rgba(0,0,0,0.7);
+}
+
+/* SLIDER */
+/* Slider wrapper */
+.slider-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* Slider */
+.slider {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+.slides {
+  display: flex;
+  transition: transform 0.4s ease-in-out;
+}
+
+.slides img {
+  width: 100%;
+  display: block;
+  border-radius: 12px;
+}
+
+/* Arrows */
+.slider-wrapper .prev,
+.slider-wrapper .next {
+  background: maroon;
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 22px;
+  border-radius: 50%;
+  transition: background 0.3s;
+}
+
+.slider-wrapper .prev:hover,
+.slider-wrapper .next:hover {
+  background: #a30000;
+}
+
+/* DESC */
+.desc-always {
+  max-height: none !important;
+  opacity: 1 !important;
+  overflow: visible;
+}
+
+.desc {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.6s ease, opacity 0.6s ease;
+  opacity: 0;
+}
+
+.desc.open {
+  max-height: 1000px; /* angka besar biar cukup */
+  opacity: 1;
+}
+
+.toggle-btn {
+  margin-top: 1rem;
+  background: maroon;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+.toggle-btn:hover {
+  background: #a30000;
+}
+
+/* ANIMASI */
+.fade-in {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.9s ease-out;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .card {
+    flex-direction: column;
+    text-align: center;
+  }
+  .slider-container {
+    flex: 0 0 100%;
+  }
+  .desc {
+    text-align: center;
+  }
+}
+
+</style>
+<body>
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-content">
+      <h1>Projek PKL</h1>
+      <p>Dokumentasi & Penjelasan Kegiatan PKL di <strong>Datasoft Solusi Indonesia</strong> 
+        selama <span>Juli – Oktober</span>.</p>
+    </div>
+  </header>
+
+  <!-- NAV TAB -->
+  <nav class="month-nav">
+    <ul>
+      <li><a href="#juli">Juli</a></li>
+      <li><a href="#agustus">Agustus</a></li>
+      <li><a href="#september">September</a></li>
+      <li><a href="#oktober">Oktober</a></li>
+    </ul>
+  </nav>
+
+  <main class="timeline">
+
+    <% const bulan = [
+      {id:"juli", nama:"Juli", img:["/img/juli1.png","/img/juli2.png","/img/juli3.png","/img/juli4.png"], 
+      desc:"Pada awal saya memasuki kegiatan PKL di bulan Juli, saya diberikan sebuah video berisi berbagai materi yang dibagikan melalui Google Drive. Video tersebut berfungsi sebagai bahan pengenalan awal, di mana saya diminta untuk mempelajari dan memahaminya terlebih dahulu sebelum mulai terjun langsung ke aktivitas praktik."},
+
+      {id:"agustus", nama:"Agustus", img:["/img/agust1.png","/img/agust2.png","/img/agust3.png","/img/agust4.png","/img/agust5.png","/img/agust6.png","/img/agust7.png"], 
+      desc: [
+        "Setelah memahami materi awal dari video yang diberikan, saya kemudian diberi tugas untuk mencoba membuat sebuah proyek sederhana berupa toko online. Tugas ini bertujuan untuk menguji sejauh mana saya benar-benar memahami materi yang sudah dipelajari sebelumnya. Melalui proses tersebut, saya tidak hanya mengulang kembali teori yang ada, tetapi juga langsung menerapkannya dalam bentuk praktik nyata.",
+        "Dari video pembelajaran tersebut, saya mendapatkan pengetahuan baru mengenai cara melakukan pengkodean menggunakan bahasa pemrograman PHP, termasuk memahami sintaks dasar PHP yang menjadi pondasi dalam proses pengembangan aplikasi berbasis web. Selain itu, saya juga diperkenalkan dengan framework PHP CodeIgniter, yang membantu mempercepat proses pembangunan aplikasi dengan struktur yang lebih teratur dan efisien.",
+        "Tidak hanya itu, saya juga mulai memahami cara menghubungkan PHP dengan AJAX, yang memungkinkan pembuatan aplikasi web lebih interaktif tanpa harus melakukan reload halaman. Dengan mempelajari konsep ini, saya semakin menyadari pentingnya kombinasi antara teori yang dipelajari melalui video dengan penerapan langsung dalam pembuatan proyek."
+      ]},
+
+      {id:"september", nama:"September", img:["/img/september1.png","/img/september2.png", "/img/september3.png", "/img/september4.png", "/img/september5.png",
+      "/img/september6.png", "/img/september7.png", "/img/september8.png", "/img/september9.png", "/img/september10.png", 
+      "/img/september11.png", "/img/september12.jpg", "/img/september13.jpg", "/img/september14.jpg"], 
+      desc: [
+        "Setelah memahami materi dasar, saya mulai mengerjakan proyek yang diberikan oleh pihak industri. Proyek tersebut saya buat menggunakan PHP CodeIgniter 3 sebagai framework utama, serta AJAX untuk mendukung interaksi yang lebih dinamis pada aplikasi web.",
+        "Langkah awal yang saya lakukan sebelum menulis kode adalah menyusun konsep proyek secara tertulis di Google Docs. Hal ini saya lakukan untuk merencanakan alur sistem, menentukan fitur yang diperlukan, serta mendokumentasikan kebutuhan dari proyek agar lebih terarah. Setelah itu, saya melanjutkan dengan membuat diagram alur atau flowchart di aplikasi Draw.io (sekarang diagrams.net). Diagram ini membantu saya memvisualisasikan struktur program, hubungan antarhalaman, serta proses yang terjadi di dalam sistem.",
+        "Dengan adanya perencanaan di Google Docs dan visualisasi di Draw.io, proses pengembangan proyek menjadi lebih terstruktur, sehingga memudahkan saya dalam tahap implementasi menggunakan PHP CI3 dan AJAX."
+      ]},
+      
+      {id:"oktober", nama:"Oktober", img:["/img/oktober1.jpg", "/img/oktober2.png", "/img/oktober3.jpg", ], 
+      desc:"Meningkatkan UX: autosuggest nama siswa otomatis isi NISN, kelas, wali kelas."}
+    ]; %>
+
+    <!-- DESKRIPSI PKL -->
+  <section class="month fade-in" id="overview">
+    <h2>Deskripsi singkat</h2>
+    <div class="card">
+      <div class="desc-always">
+        <p>
+          Halo, perkenalkan saya <strong>Reyna Aydhina Maritza</strong> dari kelas <strong>XII RPL A.</strong> 
+          Saat ini saya sedang melaksanakan PKL (Praktik Kerja Lapangan) di 
+          <strong>Datasoft Solusi Indonesia</strong> yang berlokasi di Perum Bumi Banjararum Asri, 
+          Blok S No. 16, Tanjung, Banjararum, Kecamatan Singosari, 
+          Kabupaten Malang, Jawa Timur. PKL ini berlangsung selama 4 bulan, 
+          dengan pembimbing saya yaitu Bu Dian. 
+          Informasi lebih lengkap bisa dilihat melalui <strong>Google Site</strong> saya.
+        </p>
+        <p>
+          Selama PKL, saya mendapatkan <strong>satu proyek</strong> saja yaitu <strong>membuat website 
+          yang belum tersedia di sekolah.</strong> Proyek ini dikerjakan secara penuh 
+          selama 4 bulan. Namun, di sela-sela pengerjaan proyek, kami juga 
+          diberikan berbagai materi tambahan, seperti MySQL, pembuatan website 
+          statis dan dinamis, serta cara menghosting website. 
+          Materi ini membantu saya memahami dasar hingga penerapan nyata dalam 
+          dunia pengembangan web.
+        </p>
+      </div>
+    </div>
+  </section>
+
+    <% bulan.forEach((b) => { %>
+    <section class="month fade-in" id="<%= b.id %>">
+      <h2><%= b.nama %></h2>
+<div class="card">
+  <div class="slider-wrapper">
+    <button class="prev">&#10094;</button>
+    <div class="slider">
+      <div class="slides">
+        <% b.img.forEach((src)=> { %>
+          <img src="<%= src %>" alt="<%= b.nama %>">
+        <% }); %>
+      </div>
+    </div>
+    <button class="next">&#10095;</button>
+  </div>
+  <div class="desc">
+  <% if (Array.isArray(b.desc)) { %>
+    <% b.desc.forEach(d => { %>
+      <p><%= d %></p>
+    <% }) %>
+  <% } else { %>
+    <p><%= b.desc %></p>
+  <% } %>
+</div>
+<button class="toggle-btn">Buka Deskripsi</button>
+</div>
+    </section>
+    <% }); %>
+
+  </main>
+
+  <script>
+    // SLIDER
+document.querySelectorAll(".slider-wrapper").forEach((wrapper) => {
+  const slider = wrapper.querySelector(".slider");
+  const slides = slider.querySelector(".slides");
+  const images = slides.querySelectorAll("img");
+  const prev = wrapper.querySelector(".prev");
+  const next = wrapper.querySelector(".next");
+
+  let index = 0;
+  function showSlide(i) {
+    if (i < 0) index = images.length - 1;
+    else if (i >= images.length) index = 0;
+    else index = i;
+    slides.style.transform = `translateX(-${index * 100}%)`;
+  }
+
+  prev.addEventListener("click", () => showSlide(index - 1));
+  next.addEventListener("click", () => showSlide(index + 1));
+});
+
+// Scroll animation
+document.addEventListener("scroll", () => {
+  document.querySelectorAll(".fade-in").forEach((el) => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 100) {
+      el.classList.add("visible");
+    }
+  });
+});
+
+// Highlight active nav link
+const sections = document.querySelectorAll(".month");
+const navLinks = document.querySelectorAll(".month-nav a");
+
+window.addEventListener("scroll", () => {
+  let current = "";
+  sections.forEach((sec) => {
+    const top = window.scrollY;
+    const offset = sec.offsetTop - 150;
+    const height = sec.offsetHeight;
+    if (top >= offset && top < offset + height) {
+      current = sec.getAttribute("id");
+    }
+  });
+
+  navLinks.forEach((link) => {
+    link.classList.remove("active");
+    if (link.getAttribute("href") === "#" + current) {
+      link.classList.add("active");
+    }
+  });
+});
+
+// Toggle deskripsi 
+document.querySelectorAll(".card").forEach(card => {
+  const desc = card.querySelector(".desc"); // bukan desc-always
+  const btn = card.querySelector(".toggle-btn");
+  if (btn && desc) {
+    btn.addEventListener("click", () => {
+      desc.classList.toggle("open");
+      btn.textContent = desc.classList.contains("open") ? "Tutup Deskripsi" : "Buka Deskripsi";
+    });
+  }
+});
+
+  </script>
+</body>
+</html>

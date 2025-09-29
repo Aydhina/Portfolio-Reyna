@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <title>
+    <%= title %>
+  </title>
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <!-- Background Video -->
+  <video autoplay muted loop id="bg-video">
+    <source src="/video/background.mp4" type="video/mp4">
+    Browser kamu tidak mendukung video.
+  </video>
+
+
+  <!-- Musik Latar -->
+  <audio id="bg-music" loop>
+    <source src="/music/bg-music.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Kontrol Speaker + Judul Lagu -->
+  <div class="music-control" onclick="toggleMusic()">
+    <i id="music-icon" class="fas fa-volume-mute"></i>
+    <div class="song-title"><span>🎶 Lagu Favorit - Reyna 🎶</span></div>
+  </div>
+
+
+  <!-- Konten Portofolio -->
+  <div class="container">
+    <div class="left">
+      <img src="/img/portfolio.png" alt="portfolio">
+      <p class="profile-name">Reyna Aydhina | 2007</p>
+      <nav>
+        <button onclick="window.location.href='/intro'">more</button>
+      </nav>
+    </div>
+
+    <div class="right">
+      <div class="profile-box">
+        <img src="/img/ningning.jpeg" alt="profile">
+
+        <!-- Floating Social Media Menu -->
+        <div class="social-menu">
+          <button class="main-btn" onclick="toggleSocials()">✖</button>
+          <div class="social-list">
+            <a href="https://www.instagram.com/aydhn_/" target="_blank" class="social ig"><i class="fab fa-instagram"></i></a>
+            <a href="https://github.com/Aydhina" target="_blank" class="social github"><i class="fab fa-github"></i></a>
+            <a href="https://t.me" target="_blank" class="social telegram"><i class="fab fa-telegram"></i></a>
+            <a href="https://tiktok.com" target="_blank" class="social tiktok"><i class="fab fa-tiktok"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Tombol Love -->
+<button class="love-btn" id="love-btn">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 
+             2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09
+             C13.09 3.81 14.76 3 16.5 3 
+             19.58 3 22 5.42 22 8.5
+             c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+  </svg>
+</button>
+
+<!-- Counter -->
+<div id="love-counter" class="love-counter">0</div>
+
+<!-- Container Love -->
+<div class="love-container" id="love-container"></div>
+
+
+  <script src="/js/script.js"></script>
+</body>
+
+</html>
