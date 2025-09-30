@@ -929,3 +929,56 @@
 .dropdown-menu.show {
   display: block;
 }
+
+#services {
+  margin-top: 60px;
+}
+
+.service-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.service-card {
+  display: flex;
+  align-items: center;
+  background: #1d1d27;
+  border-radius: 8px;
+  padding: 12px;
+  transition: transform 0.2s;
+}
+
+.service-card:hover {
+  transform: translateX(5px);
+}
+
+.service-card img {
+  width: 120px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-right: 16px;
+}
+
+.service-info {
+  flex: 1;
+}
+
+.service-info h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.service-info p {
+  margin: 4px 0 0;
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+.arrow {
+  color: #ffb400;
+  font-size: 1.2rem;
+}
