@@ -234,40 +234,63 @@
     </section>
 
     <!-- SERVICE / CATEGORIES -->
-<section id="services">
-  <h2 class="section-title">Bidang Keahlian</h2>
-  <div class="service-list">
-
-    <div class="service-card">
-      <img src="/img/webdev.jpg" alt="Website Development">
-      <div class="service-info">
-        <h3>Website Development</h3>
-        <p>16+ Project</p>
+    <section id="services">
+      <h2 class="section-title">Bidang Keahlian</h2>
+      <div class="service-list">
+        <% if (services.length> 0) { %>
+          <% services.forEach(s=> { %>
+            <div class="service-card">
+              <% if (s.thumbnail) { %>
+                <img src="<%= s.thumbnail %>" alt="<%= s.title %>">
+                <% } else { %>
+                  <span class="placeholder">No Image</span>
+                  <% } %>
+                    <div class="service-info">
+                      <h3>
+                        <%= s.title %>
+                      </h3>
+                      <p>
+                        <%= s.projects %>
+                      </p>
+                    </div>
+                    <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
+            </div>
+            <% }) %>
+              <% } else { %>
+                <!-- Kalau kosong, tampilkan card +Tambah -->
+                <div class="service-card add-card" onclick="openServiceModal()">
+                  <div class="service-info">
+                    <h3>+ Tambah</h3>
+                  </div>
+                </div>
+                <% } %>
       </div>
-      <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
-    </div>
+    </section>
 
-    <div class="service-card">
-      <img src="/img/mobiledev.jpg" alt="Mobile and Desktop Development">
-      <div class="service-info">
-        <h3>Mobile and Desktop Development</h3>
-        <p>14+ Project</p>
+    <div id="addServiceModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeServiceModal()">&times;</span>
+        <h2>Tambah Service</h2>
+        <form action="/service/add" method="POST" enctype="multipart/form-data">
+          <label>Judul</label>
+          <input type="text" name="title" required>
+
+          <label>Deskripsi</label>
+          <textarea name="description" rows="3"></textarea>
+
+          <label>Jumlah Project</label>
+          <input type="text" name="projects">
+
+          <label>Thumbnail</label>
+          <input type="file" name="thumbnail">
+
+          <div class="actions">
+            <button type="submit" class="btn btn-primary">Simpan</button>
+            <button type="button" class="btn-secondary" onclick="closeServiceModal()">Batal</button>
+          </div>
+        </form>
       </div>
-      <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
     </div>
-
-    <div class="service-card">
-      <img src="/img/uiux.jpg" alt="UI/UX Design">
-      <div class="service-info">
-        <h3>UI/UX Design</h3>
-        <p>13+ Project</p>
-      </div>
-      <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
-    </div>
-
-  </div>
-</section>
-
 
     <!-- PORTFOLIO -->
     <section id="portfolio">
@@ -422,7 +445,7 @@
   <script>
     // Fungsi buka project (halaman baru)
     function openProject(url) {
-      window.location.href = url; 
+      window.location.href = url;
     }
 
     // Toggle tampilkan project tambahan
@@ -586,6 +609,14 @@
         document.getElementById(tab.dataset.target).classList.add("active");
       });
     });
+
+    function openServiceModal() {
+      document.getElementById("addServiceModal").style.display = "flex";
+    }
+    function closeServiceModal() {
+      document.getElementById("addServiceModal").style.display = "none";
+    }
+
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

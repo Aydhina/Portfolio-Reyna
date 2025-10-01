@@ -3,6 +3,8 @@ const path = require("path");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const projectRoutes = require("./routes/projectRoutes");
+const serviceRoutes = require("./routes/serviceRoutes");
+
 
 dotenv.config();
 const app = express();
@@ -22,6 +24,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // routes
 app.use("/", projectRoutes);
+app.use("/", serviceRoutes);
 
 // start
 app.listen(PORT, () => {

@@ -1,19 +1,15 @@
 const Project = require("../models/projectModel");
+const Service = require("../models/serviceModel");
 
-// Ambil semua project
 exports.getAllProjects = async (req, res) => {
   try {
     const projects = await Project.find().sort({ created_at: -1 });
-    res.render("intro", { title: "Intro Page", projects });
+    const services = await Service.find().sort({ created_at: -1 });
+    res.render("intro", { title: "Intro Page", projects, services });
   } catch (err) {
-    res.status(500).send("Error ambil project: " + err.message);
+    res.status(500).send("Error ambil data: " + err.message);
   }
 };
-
-// Form tambah project
-// exports.formAdd = (req, res) => {
-//   res.render("project_add", { title: "Tambah Project" });
-// };
 
 // Simpan project baru
 exports.createProject = async (req, res) => {
