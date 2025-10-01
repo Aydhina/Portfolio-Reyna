@@ -133,10 +133,50 @@
       </div>
     </section>
 
+    <h2 class="section-title">Keahlian</h2>
+    <section id="skills-categories">
+      <div class="skills-categories">
+        <div class="category-card">
+          <div class="icon"><i class="fa-solid fa-code"></i></div>
+          <h3>Frontend Core</h3>
+          <p>Teknologi dasar untuk membangun UI modern</p>
+          <div class="chips">
+            <span class="chip"><i class="fa-brands fa-html5"></i> HTML</span>
+            <span class="chip"><i class="fa-brands fa-css3-alt"></i> CSS</span>
+            <span class="chip"><i class="fa-brands fa-js"></i> JavaScript</span>
+            <span class="chip"><i class="fa-brands fa-react"></i> React</span>
+        <span class="chip"><i class="fa-brands fa-php"></i> PHP</span>
+        <span class="chip"><i class="fa-brands fa-node-js"></i> Express.js</span>
+          </div>
+        </div>
+
+        <div class="category-card">
+          <div class="icon"><i class="fa-solid fa-toolbox"></i></div>
+          <h3>Frameworks & Tools</h3>
+          <p>Alat & framework untuk produktivitas developer</p>
+          <div class="chips">
+        <span class="chip"><i class="fa-solid fa-vial"></i> Postman</span>
+            <span class="chip"><i class="fa-solid fa-code-branch"></i> VS Code</span>
+            <span class="chip"><i class="fa-brands fa-figma"></i> Figma</span>
+          </div>
+        </div>
+
+        <div class="category-card">
+          <div class="icon"><i class="fa-solid fa-user-group"></i></div>
+          <h3>Soft Skills</h3>
+          <p>Kemampuan pendukung untuk kerja tim yang solid</p>
+          <div class="chips">
+            <span class="chip"><i class="fa-solid fa-people-arrows"></i> Teamwork</span>
+            <span class="chip"><i class="fa-solid fa-comments"></i> Komunikasi</span>
+            <span class="chip"><i class="fa-solid fa-lightbulb"></i> Problem Solving</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- SKILLS -->
     <section id="skills">
-      <h2 class="section-title">Keahlian</h2>
+
       <div class="skills">
         <div class="skill" data-percent="90">
           <div class="skill-header">
@@ -194,105 +234,55 @@
       </div>
     </section>
 
-    <section id="skills-categories">
-      <div class="skills-categories">
-        <div class="category-card">
-          <div class="icon"><i class="fa-solid fa-code"></i></div>
-          <h3>Frontend Core</h3>
-          <p>Teknologi dasar untuk membangun UI modern</p>
-          <div class="chips">
-            <span class="chip"><i class="fa-brands fa-html5"></i> HTML</span>
-            <span class="chip"><i class="fa-brands fa-css3-alt"></i> CSS</span>
-            <span class="chip"><i class="fa-brands fa-js"></i> JavaScript</span>
-            <span class="chip"><i class="fa-brands fa-react"></i> React</span>
-            <span class="chip"><i class="fa-solid fa-layer-group"></i> Next.js</span>
-          </div>
+    <!-- PROJECT DESC -->
+    <div class="portfolio-list">
+      <div class="portfolio-item">
+        <div class="thumb">
+          <img src="/img/none_image.png" alt="Thumbnail">
         </div>
-
-        <div class="category-card">
-          <div class="icon"><i class="fa-solid fa-toolbox"></i></div>
-          <h3>Frameworks & Tools</h3>
-          <p>Alat & framework untuk produktivitas developer</p>
-          <div class="chips">
-            <span class="chip"><i class="fa-brands fa-git-alt"></i> Git</span>
-            <span class="chip"><i class="fa-solid fa-code-branch"></i> VS Code</span>
-            <span class="chip"><i class="fa-brands fa-figma"></i> Figma</span>
-          </div>
+        <div class="info">
+          <h3>ASTRA</h3>
+          <p>Aplikasi pencatatan poin pelanggaran siswa/siswi SMKN 8 Malang</p>
         </div>
-
-        <div class="category-card">
-          <div class="icon"><i class="fa-solid fa-user-group"></i></div>
-          <h3>Soft Skills</h3>
-          <p>Kemampuan pendukung untuk kerja tim yang solid</p>
-          <div class="chips">
-            <span class="chip"><i class="fa-solid fa-people-arrows"></i> Teamwork</span>
-            <span class="chip"><i class="fa-solid fa-comments"></i> Komunikasi</span>
-            <span class="chip"><i class="fa-solid fa-lightbulb"></i> Problem Solving</span>
-          </div>
+        <div class="arrow">
+          <a href="/pkl/astra.ejs">
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
         </div>
       </div>
-    </section>
 
-    <!-- SERVICE / CATEGORIES -->
-    <section id="services">
-      <h2 class="section-title">Bidang Keahlian</h2>
-      <div class="service-list">
-        <% if (services.length> 0) { %>
-          <% services.forEach(s=> { %>
-            <div class="service-card">
-              <% if (s.thumbnail) { %>
-                <img src="<%= s.thumbnail %>" alt="<%= s.title %>">
-                <% } else { %>
-                  <span class="placeholder">No Image</span>
-                  <% } %>
-                    <div class="service-info">
-                      <h3>
-                        <%= s.title %>
-                      </h3>
-                      <p>
-                        <%= s.projects %>
-                      </p>
-                    </div>
-                    <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
-            </div>
-            <% }) %>
-              <% } else { %>
-                <!-- Kalau kosong, tampilkan card +Tambah -->
-                <div class="service-card add-card" onclick="openServiceModal()">
-                  <div class="service-info">
-                    <h3>+ Tambah</h3>
-                  </div>
-                </div>
-                <% } %>
+      <div class="portfolio-item">
+        <div class="thumb">
+          <img src="/img/none_image.png" alt="Thumbnail">
+        </div>
+        <div class="info">
+          <h3>Judul Project 2</h3>
+          <p>Deskripsi singkat project 2</p>
+        </div>
+        <div class="arrow">
+          <a href="#">
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
       </div>
-    </section>
 
-    <div id="addServiceModal" class="modal">
-      <div class="modal-content">
-        <span class="close" onclick="closeServiceModal()">&times;</span>
-        <h2>Tambah Service</h2>
-        <form action="/service/add" method="POST" enctype="multipart/form-data">
-          <label>Judul</label>
-          <input type="text" name="title" required>
-
-          <label>Deskripsi</label>
-          <textarea name="description" rows="3"></textarea>
-
-          <label>Jumlah Project</label>
-          <input type="text" name="projects">
-
-          <label>Thumbnail</label>
-          <input type="file" name="thumbnail">
-
-          <div class="actions">
-            <button type="submit" class="btn btn-primary">Simpan</button>
-            <button type="button" class="btn-secondary" onclick="closeServiceModal()">Batal</button>
-          </div>
-        </form>
+      <div class="portfolio-item">
+        <div class="thumb">
+          <img src="/img/none_image.png" alt="Thumbnail">
+        </div>
+        <div class="info">
+          <h3>Judul Project 2</h3>
+          <p>Deskripsi singkat project 2</p>
+        </div>
+        <div class="arrow">
+          <a href="#">
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
       </div>
     </div>
 
-    <!-- PORTFOLIO -->
+    <!-- PROJECT/PORTOFOLIO -->
     <section id="portfolio">
       <h2 class="section-title">
         Project Terbaru
@@ -609,13 +599,6 @@
         document.getElementById(tab.dataset.target).classList.add("active");
       });
     });
-
-    function openServiceModal() {
-      document.getElementById("addServiceModal").style.display = "flex";
-    }
-    function closeServiceModal() {
-      document.getElementById("addServiceModal").style.display = "none";
-    }
 
   </script>
 
