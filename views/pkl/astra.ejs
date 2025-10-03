@@ -5,277 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Projek PKL — Datasoft Solusi Indonesia</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/astra.css" />
 </head>
-<style>
-/* GLOBAL */
-body {
-  margin: 0;
-  font-family: "Poppins", sans-serif;
-  background: radial-gradient(circle at top left, #0f0f0f, #000);
-  color: #f5f5f5;
-  line-height: 1.8;
-}
-
-/* HERO */
-.hero {
-  background: linear-gradient(135deg, #800000, #000000);
-  padding: 6rem 2rem;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%);
-  animation: shine 6s linear infinite;
-}
-@keyframes shine {
-  0% { transform: translateX(-100%) rotate(25deg); }
-  100% { transform: translateX(200%) rotate(25deg); }
-}
-.hero h1 {
-  font-family: "Merriweather", serif;
-  font-size: 3.5rem;
-  margin: 0 0 1rem;
-  color: #fff;
-  letter-spacing: 2px;
-}
-.hero p {
-  font-size: 1.3rem;
-  max-width: 750px;
-  margin: auto;
-  opacity: 0.95;
-  line-height: 1.9;
-}
-.hero span {
-  color: #ffb3b3;
-  font-weight: 700;
-  text-shadow: 0 0 10px rgba(255, 179, 179, 0.6);
-}
-
-/* NAV TAB */
-.month-nav {
-  position: sticky;
-  top: 0;
-  z-index: 999;
-  background: rgba(20,20,20,0.8);
-  padding: 0.7rem 0;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  backdrop-filter: blur(12px);
-}
-.month-nav ul {
-  display: flex;
-  justify-content: center;
-  gap: 2.5rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.month-nav a {
-  color: #ddd;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  padding: 0.5rem 0.8rem;
-  border-radius: 8px;
-}
-.month-nav a:hover {
-  color: #fff;
-  background: linear-gradient(135deg, #a30000, #ff3333);
-  box-shadow: 0 0 12px rgba(255, 80, 80, 0.5);
-}
-.month-nav a.active {
-  color: #fff;
-  background: linear-gradient(135deg, #b30000, #ff4d4d);
-  box-shadow: 0 0 15px rgba(255, 77, 77, 0.6);
-}
-
-/* TIMELINE */
-.timeline {
-  max-width: 1200px;
-  margin: auto;
-  padding: 4rem 1.5rem;
-}
-.month h2 {
-  font-size: 2.2rem;
-  color: #ff9999;
-  margin-bottom: 2rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  position: relative;
-}
-.month h2::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -8px;
-  width: 50%;
-  height: 3px;
-  background: linear-gradient(90deg, #ff4d4d, transparent);
-  border-radius: 2px;
-  transition: width 0.4s ease;
-}
-.month h2:hover::after {
-  width: 100%;
-}
-
-/* CARD */
-.card {
-  flex-direction: column; /* selalu column, bukan row */
-  text-align: center;     /* biar rapi */
-  gap: 2rem;
-  padding: 2rem;
-  background: rgba(26,26,26,0.85);
-  border-radius: 18px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-  backdrop-filter: blur(10px);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
-
-.card .desc {
-  text-align: justify; /* kalau mau rata kiri-kanan biar enak dibaca */
-}
-
-.card:hover {
-  transform: translateY(-8px) scale(1.02);
-  /* Hanya bayangan natural, tanpa glow merah */
-  box-shadow: 0 14px 30px rgba(0,0,0,0.7);
-}
-
-/* SLIDER */
-/* Slider wrapper */
-.slider-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-}
-
-/* Slider */
-.slider {
-  position: relative;
-  width: 100%;
-  max-width: 480px;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-}
-
-.slides {
-  display: flex;
-  transition: transform 0.4s ease-in-out;
-}
-
-.slides img {
-  width: 100%;
-  display: block;
-  border-radius: 12px;
-}
-
-/* Arrows */
-.slider-wrapper .prev,
-.slider-wrapper .next {
-  background: maroon;
-  color: white;
-  border: none;
-  padding: 12px 16px;
-  cursor: pointer;
-  font-size: 22px;
-  border-radius: 50%;
-  transition: background 0.3s;
-}
-
-.slider-wrapper .prev:hover,
-.slider-wrapper .next:hover {
-  background: #a30000;
-}
-
-/* DESC */
-.desc-always {
-  max-height: none !important;
-  opacity: 1 !important;
-  overflow: visible;
-}
-
-.desc {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.6s ease, opacity 0.6s ease;
-  opacity: 0;
-}
-
-.desc.open {
-  max-height: 1000px; /* angka besar biar cukup */
-  opacity: 1;
-}
-
-.toggle-btn {
-  margin-top: 1rem;
-  background: maroon;
-  color: #fff;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background 0.3s;
-}
-.toggle-btn:hover {
-  background: #a30000;
-}
-
-/* ANIMASI */
-.fade-in {
-  opacity: 0;
-  transform: translateY(50px);
-  transition: all 0.9s ease-out;
-}
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-@media (max-width: 768px) {
-  .card {
-    flex-direction: column;
-    text-align: center;
-  }
-  .slider-container {
-    flex: 0 0 100%;
-  }
-  .desc {
-    text-align: center;
-  }
-}
-
-</style>
 <body>
   <!-- HERO -->
   <header class="hero">
     <div class="hero-content">
-      <h1>Projek PKL</h1>
-      <p>Dokumentasi & Penjelasan Kegiatan PKL di <strong>Datasoft Solusi Indonesia</strong> 
-        selama <span>Juli – Oktober</span>.</p>
+      <h1>ASTRA</h1>
+      <p>Dokumentasi & Penjelasan mengenai projek aplikasi web 
+        <span>ASTRA Selapan</span>.</p>
     </div>
   </header>
 
   <!-- NAV TAB -->
-  <nav class="month-nav">
+  <!-- <nav class="month-nav">
     <ul>
       <li><a href="#juli">Juli</a></li>
       <li><a href="#agustus">Agustus</a></li>
       <li><a href="#september">September</a></li>
       <li><a href="#oktober">Oktober</a></li>
     </ul>
-  </nav>
+  </nav> -->
 
   <main class="timeline">
 
     <% const bulan = [
-      {id:"juli", nama:"Juli", img:["/img/juli1.png","/img/juli2.png","/img/juli3.png","/img/juli4.png"], 
+      {id:"juli", nama:"Konsep & Flowchart", img:["/img/pkl/juli1.png","/img/juli2.png","/img/juli3.png","/img/juli4.png"], 
       desc:"Pada awal saya memasuki kegiatan PKL di bulan Juli, saya diberikan sebuah video berisi berbagai materi yang dibagikan melalui Google Drive. Video tersebut berfungsi sebagai bahan pengenalan awal, di mana saya diminta untuk mempelajari dan memahaminya terlebih dahulu sebelum mulai terjun langsung ke aktivitas praktik."},
 
       {id:"agustus", nama:"Agustus", img:["/img/agust1.png","/img/agust2.png","/img/agust3.png","/img/agust4.png","/img/agust5.png","/img/agust6.png","/img/agust7.png"], 
@@ -315,11 +70,10 @@ body {
         <p>
           Selama PKL, saya mendapatkan <strong>satu proyek</strong> saja yaitu <strong>membuat website 
           yang belum tersedia di sekolah.</strong> Proyek ini dikerjakan secara penuh 
-          selama 4 bulan. Namun, di sela-sela pengerjaan proyek, kami juga 
-          diberikan berbagai materi tambahan, seperti MySQL, pembuatan website 
-          statis dan dinamis, serta cara menghosting website. 
-          Materi ini membantu saya memahami dasar hingga penerapan nyata dalam 
-          dunia pengembangan web.
+          selama 4 bulan. Aplikasi yang saya kembangkan difokuskan untuk mendukung kinerja pihak BK dalam 
+          mencatat poin pelanggaran maupun ketidakhadiran siswa secara lebih teratur dan efisien. 
+          Dengan adanya aplikasi ini, saya berharap pihak sekolah dapat memanfaatkannya karena aplikasi ini
+          membantu mempercepat proses pencatatan, meminimalisir kesalahan input data, serta memudahkan pihak BK dalam melakukan evaluasi terhadap kedisiplinan siswa.
         </p>
       </div>
     </div>

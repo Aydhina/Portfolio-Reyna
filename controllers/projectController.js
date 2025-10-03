@@ -1,11 +1,9 @@
 const Project = require("../models/projectModel");
-const Service = require("../models/serviceModel");
 
 exports.getAllProjects = async (req, res) => {
   try {
     const projects = await Project.find().sort({ created_at: -1 });
-    const services = await Service.find().sort({ created_at: -1 });
-    res.render("intro", { title: "Intro Page", projects, services });
+    res.render("intro", { title: "Intro Page", projects});
   } catch (err) {
     res.status(500).send("Error ambil data: " + err.message);
   }

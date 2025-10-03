@@ -15,16 +15,19 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-// Routes
+// Routes utama
 router.get("/intro", projectController.getAllProjects);
-
 router.get("/", projectController.getAllProjects);
-// router.get("/project/add", projectController.formAdd);
-router.post("/project/add", upload.single("thumbnail"), projectController.createProject);
 
+// CRUD project
+router.post("/project/add", upload.single("thumbnail"), projectController.createProject);
 router.get("/project/edit/:id", projectController.formEdit);
 router.post("/project/edit/:id", upload.single("thumbnail"), projectController.updateProject);
-
 router.post("/project/delete/:id", projectController.deleteProject);
+
+// Route manual untuk halaman Astra
+router.get("/pkl/astra", (req, res) => {
+  res.render("pkl/astra");
+});
 
 module.exports = router;
