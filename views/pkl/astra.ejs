@@ -1,15 +1,211 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Projek PKL — Datasoft Solusi Indonesia</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/astra.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Projek PKL — ASTRA (Futuristic Elegan Pro)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+  <style>
+    /* ---------- BASIC ---------- */
+    :root{
+      --bg:#070707;
+      --card: rgba(18,18,18,0.6);
+      --glass-border: rgba(255,80,80,0.12);
+      --accent:#990b0b; /* maroon */
+      --accent-soft: rgba(153,11,11,0.12);
+      --muted:#bdbdbd;
+      --glass-blur: 12px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:var(--bg);color:#f4f4f4;font-family:'Poppins',sans-serif;overflow-x:hidden;scroll-behavior:smooth}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block;height:auto}
+
+    /* ---------- HERO (DIPERTAHANKAN) ---------- */
+    .hero {
+      background: linear-gradient(135deg, #800000, #000000);
+      padding: 6rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.08), transparent 70%);
+      animation: shine 6s linear infinite;
+    }
+    @keyframes shine {
+      0% { transform: translateX(-100%) rotate(25deg); }
+      100% { transform: translateX(200%) rotate(25deg); }
+    }
+    .hero h1 {
+      font-family: "Merriweather", serif;
+      font-size: 3.5rem;
+      margin: 0 0 1rem;
+      color: #fff;
+      letter-spacing: 2px;
+    }
+    .hero p {
+      font-size: 1.3rem;
+      max-width: 750px;
+      margin: auto;
+      opacity: 0.95;
+      line-height: 1.9;
+    }
+    .hero span {
+      color: #ffb3b3;
+      font-weight: 700;
+      text-shadow: 0 0 10px rgba(255, 179, 179, 0.6);
+    }
+
+    /* ---------- NAVBAR MINIMAL (atas) ---------- */
+    nav.topbar{
+      position:fixed;top:8px;left:0;right:0;display:flex;justify-content:center;gap:20px;z-index:1200;
+      pointer-events:auto;
+    }
+    nav.topbar a{
+      background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,0.04);
+      color:var(--muted);font-weight:600;font-size:13px;backdrop-filter:blur(8px)
+    }
+    nav.topbar a:hover{color:#fff;box-shadow:0 6px 18px rgba(153,11,11,0.12);border-color:var(--accent-soft)}
+
+    /* ---------- PARALLAX LAYERS ---------- */
+    .parallax-layer {
+      position:fixed;pointer-events:none;inset:0;z-index:-2;will-change:transform;
+    }
+    /* subtle radial glow center */
+    .parallax-layer.layer-0{
+      background: radial-gradient(circle at 20% 20%, rgba(153,11,11,0.06), transparent 20%),
+                  radial-gradient(circle at 80% 80%, rgba(255,50,50,0.03), transparent 25%);
+      mix-blend-mode:screen;opacity:0.9;filter:blur(30px);
+      transform: translateZ(0);
+    }
+    /* faint geometric texture */
+    .parallax-layer.layer-1{
+      background-image: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+      opacity:0.25;mix-blend-mode:overlay;transform: translateZ(0);
+      filter:contrast(0.9) brightness(0.9);
+    }
+
+    /* particle canvas layer */
+    #particle-canvas{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:0.85}
+
+    /* ---------- MAIN STORY CONTAINER ---------- */
+    main{position:relative;z-index:10;max-width:1100px;margin:3.5rem auto;padding:2rem}
+    .stage{
+      display:grid;grid-template-columns:1fr 420px;gap:36px;align-items:start;
+      margin:2rem 0;padding:28px;border-radius:16px;background:var(--card);
+      border:1px solid var(--glass-border);backdrop-filter:blur(var(--glass-blur));
+      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+      transition:transform .6s cubic-bezier(.2,.9,.2,1),box-shadow .4s;
+      overflow:hidden;
+    }
+    .stage:hover{transform:translateY(-6px);box-shadow:0 18px 60px rgba(153,11,11,0.12)}
+    /* single-column fallback on small screens */
+    @media (max-width:980px){.stage{grid-template-columns:1fr;max-width:92vw;padding:20px}}
+
+    /* ---------- STORY TEXT ---------- */
+    .story-left{padding-right:6px}
+    .kicker{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg, rgba(153,11,11,0.12), rgba(153,11,11,0.06));color:#ffdede;font-weight:700;font-size:13px;margin-bottom:10px}
+    h2.proj-title{margin:0 0 10px;font-family:'Merriweather';font-size:1.6rem;color:#fff;letter-spacing:0.6px}
+    p.lead{color:#e6e6e6;font-size:1rem;line-height:1.9;margin:0 0 12px}
+    ul.features{padding-left:18px;margin:8px 0 0;color:#ddd}
+    ul.features li{margin:8px 0;opacity:0.95}
+
+    /* ---------- SLIDER (kanan) ---------- */
+    .visual-right{position:relative;display:block;height:100%;align-self:stretch}
+    .carousel{
+      position:relative;border-radius:12px;overflow:hidden;height:100%;
+      min-height:300px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+      box-shadow:inset 0 0 30px rgba(0,0,0,0.5);
+      border:1px solid rgba(255,255,255,0.03)
+    }
+    .carousel .slide{
+      position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.04);
+      transition:opacity 1s ease, transform 1.2s cubic-bezier(.2,.9,.2,1);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    }
+    .carousel .slide.show{opacity:1;transform:scale(1)}
+    /* subtle neon edge */
+    .carousel::after{
+      content:"";position:absolute;inset:0;border-radius:12px;padding:1px;
+      background:linear-gradient(90deg, rgba(153,11,11,0.12), rgba(255,80,80,0.06));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      pointer-events:none;
+    }
+
+    /* controls (tiny) */
+    .dots{display:flex;gap:8px;justify-content:center;padding:12px 0}
+    .dot{width:10px;height:10px;border-radius:50%;background:#666;box-shadow:0 2px 8px rgba(0,0,0,0.6);cursor:pointer}
+    .dot.active{background:var(--accent);box-shadow:0 0 14px rgba(153,11,11,0.28)}
+
+    /* ---------- FOOTER ---------- */
+    footer{max-width:1100px;margin:4rem auto 6rem;color:var(--muted);text-align:center;font-size:0.95rem;padding:1rem}
+
+    /* ---------- APPEAR ANIM ---------- */
+    .reveal{opacity:0;transform:translateY(28px);transition:all .9s cubic-bezier(.2,.9,.2,1)}
+    .reveal.visible{opacity:1;transform:none}
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width:600px){
+      .kicker{font-size:12px}
+      h2.proj-title{font-size:1.25rem}
+    }
+
+    /* ---------- STAGE INTRO (slightly different visual style) ---------- */
+.stage-intro {
+  background: linear-gradient(145deg, rgba(153, 11, 11, 0.08), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 100, 100, 0.1);
+  box-shadow: 0 8px 30px rgba(153, 11, 11, 0.08);
+  text-align: left;
+}
+
+.stage-intro:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 40px rgba(153, 11, 11, 0.12);
+}
+
+.stage-intro .kicker {
+  background: linear-gradient(90deg, rgba(255, 120, 120, 0.18), rgba(153, 11, 11, 0.12));
+  color: #ffeaea;
+}
+
+.stage-intro .proj-title {
+  font-size: 1.8rem;
+  letter-spacing: 0.8px;
+  background: linear-gradient(90deg, #fff, #ffcccc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.stage-intro .lead {
+  color: #f0f0f0;
+  font-size: 1.05rem;
+  line-height: 1.9;
+}
+
+  </style>
 </head>
 <body>
-  <!-- HERO -->
-  <header class="hero">
+  <!-- PARALLAX LAYERS -->
+  <div class="parallax-layer layer-0" aria-hidden="true"></div>
+  <div class="parallax-layer layer-1" aria-hidden="true"></div>
+  <canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+  <!-- NAV (minimal) -->
+  <nav class="topbar" aria-label="quick-links">
+    <a href="#overview">Overview</a>
+    <a href="#story">Storyline</a>
+    <a href="#features">Fitur</a>
+    <a href="#hasil">Hasil</a>
+  </nav>
+
+  <!-- HERO (tetap persis) -->
+  <header class="hero" role="banner">
     <div class="hero-content">
       <h1>ASTRA</h1>
       <p>Dokumentasi & Penjelasan mengenai projek aplikasi web 
@@ -17,165 +213,239 @@
     </div>
   </header>
 
-  <!-- NAV TAB -->
-  <!-- <nav class="month-nav">
-    <ul>
-      <li><a href="#juli">Juli</a></li>
-      <li><a href="#agustus">Agustus</a></li>
-      <li><a href="#september">September</a></li>
-      <li><a href="#oktober">Oktober</a></li>
-    </ul>
-  </nav> -->
+  <!-- MAIN -->
+  <main>
 
-  <main class="timeline">
-
-    <% const bulan = [
-      {id:"juli", nama:"Konsep & Flowchart", img:["/img/pkl/juli1.png","/img/juli2.png","/img/juli3.png","/img/juli4.png"], 
-      desc:"Pada awal saya memasuki kegiatan PKL di bulan Juli, saya diberikan sebuah video berisi berbagai materi yang dibagikan melalui Google Drive. Video tersebut berfungsi sebagai bahan pengenalan awal, di mana saya diminta untuk mempelajari dan memahaminya terlebih dahulu sebelum mulai terjun langsung ke aktivitas praktik."},
-
-      {id:"agustus", nama:"Agustus", img:["/img/agust1.png","/img/agust2.png","/img/agust3.png","/img/agust4.png","/img/agust5.png","/img/agust6.png","/img/agust7.png"], 
-      desc: [
-        "Setelah memahami materi awal dari video yang diberikan, saya kemudian diberi tugas untuk mencoba membuat sebuah proyek sederhana berupa toko online. Tugas ini bertujuan untuk menguji sejauh mana saya benar-benar memahami materi yang sudah dipelajari sebelumnya. Melalui proses tersebut, saya tidak hanya mengulang kembali teori yang ada, tetapi juga langsung menerapkannya dalam bentuk praktik nyata.",
-        "Dari video pembelajaran tersebut, saya mendapatkan pengetahuan baru mengenai cara melakukan pengkodean menggunakan bahasa pemrograman PHP, termasuk memahami sintaks dasar PHP yang menjadi pondasi dalam proses pengembangan aplikasi berbasis web. Selain itu, saya juga diperkenalkan dengan framework PHP CodeIgniter, yang membantu mempercepat proses pembangunan aplikasi dengan struktur yang lebih teratur dan efisien.",
-        "Tidak hanya itu, saya juga mulai memahami cara menghubungkan PHP dengan AJAX, yang memungkinkan pembuatan aplikasi web lebih interaktif tanpa harus melakukan reload halaman. Dengan mempelajari konsep ini, saya semakin menyadari pentingnya kombinasi antara teori yang dipelajari melalui video dengan penerapan langsung dalam pembuatan proyek."
-      ]},
-
-      {id:"september", nama:"September", img:["/img/september1.png","/img/september2.png", "/img/september3.png", "/img/september4.png", "/img/september5.png",
-      "/img/september6.png", "/img/september7.png", "/img/september8.png", "/img/september9.png", "/img/september10.png", 
-      "/img/september11.png", "/img/september12.jpg", "/img/september13.jpg", "/img/september14.jpg"], 
-      desc: [
-        "Setelah memahami materi dasar, saya mulai mengerjakan proyek yang diberikan oleh pihak industri. Proyek tersebut saya buat menggunakan PHP CodeIgniter 3 sebagai framework utama, serta AJAX untuk mendukung interaksi yang lebih dinamis pada aplikasi web.",
-        "Langkah awal yang saya lakukan sebelum menulis kode adalah menyusun konsep proyek secara tertulis di Google Docs. Hal ini saya lakukan untuk merencanakan alur sistem, menentukan fitur yang diperlukan, serta mendokumentasikan kebutuhan dari proyek agar lebih terarah. Setelah itu, saya melanjutkan dengan membuat diagram alur atau flowchart di aplikasi Draw.io (sekarang diagrams.net). Diagram ini membantu saya memvisualisasikan struktur program, hubungan antarhalaman, serta proses yang terjadi di dalam sistem.",
-        "Dengan adanya perencanaan di Google Docs dan visualisasi di Draw.io, proses pengembangan proyek menjadi lebih terstruktur, sehingga memudahkan saya dalam tahap implementasi menggunakan PHP CI3 dan AJAX."
-      ]},
-      
-      {id:"oktober", nama:"Oktober", img:["/img/oktober1.jpg", "/img/oktober2.png", "/img/oktober3.jpg", ], 
-      desc:"Meningkatkan UX: autosuggest nama siswa otomatis isi NISN, kelas, wali kelas."}
-    ]; %>
-
-    <!-- DESKRIPSI PKL -->
-  <section class="month fade-in" id="overview">
-    <h2>Deskripsi singkat</h2>
-    <div class="card">
-      <div class="desc-always">
-        <p>
-          Halo, perkenalkan saya <strong>Reyna Aydhina Maritza</strong> dari kelas <strong>XII RPL A.</strong> 
-          Saat ini saya sedang melaksanakan PKL (Praktik Kerja Lapangan) di 
-          <strong>Datasoft Solusi Indonesia</strong> yang berlokasi di Perum Bumi Banjararum Asri, 
-          Blok S No. 16, Tanjung, Banjararum, Kecamatan Singosari, 
-          Kabupaten Malang, Jawa Timur. PKL ini berlangsung selama 4 bulan, 
-          dengan pembimbing saya yaitu Bu Dian. 
-          Informasi lebih lengkap bisa dilihat melalui <strong>Google Site</strong> saya.
-        </p>
-        <p>
-          Selama PKL, saya mendapatkan <strong>satu proyek</strong> saja yaitu <strong>membuat website 
-          yang belum tersedia di sekolah.</strong> Proyek ini dikerjakan secara penuh 
-          selama 4 bulan. Aplikasi yang saya kembangkan difokuskan untuk mendukung kinerja pihak BK dalam 
-          mencatat poin pelanggaran maupun ketidakhadiran siswa secara lebih teratur dan efisien. 
-          Dengan adanya aplikasi ini, saya berharap pihak sekolah dapat memanfaatkannya karena aplikasi ini
-          membantu mempercepat proses pencatatan, meminimalisir kesalahan input data, serta memudahkan pihak BK dalam melakukan evaluasi terhadap kedisiplinan siswa.
-        </p>
-      </div>
-    </div>
-  </section>
-
-    <% bulan.forEach((b) => { %>
-    <section class="month fade-in" id="<%= b.id %>">
-      <h2><%= b.nama %></h2>
-<div class="card">
-  <div class="slider-wrapper">
-    <button class="prev">&#10094;</button>
-    <div class="slider">
-      <div class="slides">
-        <% b.img.forEach((src)=> { %>
-          <img src="<%= src %>" alt="<%= b.nama %>">
-        <% }); %>
-      </div>
-    </div>
-    <button class="next">&#10095;</button>
+    <!-- STAGE INTRO BOX -->
+     <section class="stage stage-intro reveal">
+  <div class="story-left" style="grid-column:1 / -1">
+    <span class="kicker">Pendahuluan</span>
+    <h2 class="proj-title">apa itu ASTRA?</h2>
+    <p class="lead">
+      <strong>ASTRA</strong> Astra adalah sebuah aplikasi sistem tata tertib yang dikembangkan 
+      untuk Asta Arkananta. Aplikasi ini berfungsi sebagai alat pengelolaan poin pelanggaran 
+      dan ketidakhadiran siswa agar proses administrasi kedisiplinan menjadi lebih efisien dan 
+      terstruktur. Dengan menggunakan teknologi berbasis PHP dan framework CodeIgniter, Astra 
+      dirancang agar mudah digunakan serta memiliki performa yang optimal dalam pengolahan data siswa.
+    </p>
+    
+    <p class="lead">
+      Selama masa Praktik Kerja Lapangan (PKL) di <strong>PT Datasoft Solusi Indonesia</strong>, saya berfokus 
+      sepenuhnya pada pengembangan proyek Astra ini sebagai satu-satunya proyek utama yang saya 
+      kerjakan. Melalui proyek ini, saya tidak hanya berkontribusi dalam pengembangan sistem, tetapi 
+      juga memperoleh pengalaman langsung dalam penerapan teknologi web dan manajemen proyek berbasis industri.
+    </p>
   </div>
-  <div class="desc">
-  <% if (Array.isArray(b.desc)) { %>
-    <% b.desc.forEach(d => { %>
-      <p><%= d %></p>
-    <% }) %>
-  <% } else { %>
-    <p><%= b.desc %></p>
-  <% } %>
-</div>
-<button class="toggle-btn">Buka Deskripsi</button>
-</div>
-    </section>
-    <% }); %>
+</section>
 
+
+    <!-- Stage 1: Intro + visual -->
+    <section id="overview" class="stage reveal">
+      
+      <div class="story-left">
+        <span class="kicker">Langkah Awal</span>
+        <h2 class="proj-title">Tahap Perancangan Konsep Aplikasi</h2>
+        <p class="lead">
+          Langkah pertama dalam pengembangan aplikasi Astra adalah menentukan konsep 
+          dasar sistem. Proses ini dimulai dengan pembuatan flowchart menggunakan Draw.io 
+          untuk menggambarkan alur kerja aplikasi secara visual. Selain itu, alur sistem 
+          juga dijelaskan secara tertulis melalui dokumen di Google Docs agar mudah 
+          dipahami oleh seluruh tim. Setelah konsep dan alur sistem selesai disusun, 
+          tahap berikutnya adalah menentukan tampilan antarmuka aplikasi. Pada tahap awal, 
+          kami menggunakan template yang sudah tersedia sebagai dasar desain, kemudian melakukan 
+          beberapa penyesuaian dan modifikasi dengan mengambil inspirasi dari berbagai referensi 
+          desain di Pinterest, sehingga tampilan aplikasi menjadi lebih menarik dan sesuai dengan kebutuhan pengguna.</p>
+        <ul class="features">
+          <li>Dokumentasi: perencanaan di Google Docs & flowchart di Draw.io</li>
+        </ul>
+      </div>
+
+      <aside class="visual-right" aria-hidden="false">
+        <div class="carousel" id="carousel-1" aria-label="slideshow">
+          <div class="slide show" style="background-image:url('/img/pkl/juli1.png');"></div>
+          <div class="slide" style="background-image:url('/img/agust1.png');"></div>
+          <div class="slide" style="background-image:url('/img/september3.png');"></div>
+        </div>
+        <div class="dots" data-carousel="carousel-1"></div>
+      </aside>
+    </section>
+
+    <!-- Stage 2: Process -->
+    <section id="story" class="stage reveal">
+      <div class="story-left">
+        <span class="kicker">Proses</span>
+        <h2 class="proj-title">Dari Rencana ke Implementasi</h2>
+        <p class="lead">Perencanaan sistem dilakukan secara bertahap: requirement → dokumen → flowchart → implementasi. Pendekatan ini meminimalkan rewrites dan mempercepat deliverable.</p>
+        <ul class="features">
+          <li>Struktur MVC rapi & modular</li>
+          <li>AJAX untuk interaksi tanpa reload</li>
+          <li>Testing manual & perbaikan UX sebelum final</li>
+        </ul>
+      </div>
+
+      <aside class="visual-right" aria-hidden="false">
+        <div class="carousel" id="carousel-2">
+          <div class="slide show" style="background-image:url('/img/september4.png');"></div>
+          <div class="slide" style="background-image:url('/img/september7.png');"></div>
+          <div class="slide" style="background-image:url('/img/september10.png');"></div>
+        </div>
+        <div class="dots" data-carousel="carousel-2"></div>
+      </aside>
+    </section>
+
+    <!-- Stage 3: Outcomes -->
+    <section id="hasil" class="stage reveal">
+      <div class="story-left">
+        <span class="kicker">Hasil</span>
+        <h2 class="proj-title">Hasil & Pembelajaran</h2>
+        <p class="lead">ASTRA menghadirkan pencatatan yang lebih cepat, fitur autosuggest untuk input siswa, serta panel dashboard sederhana untuk analisa poin pelanggaran.</p>
+        <ul class="features">
+          <li>Peningkatan kecepatan input & pengurangan kesalahan manual</li>
+          <li>Dokumentasi siap presentasi untuk pihak sekolah</li>
+          <li>Pengalaman belajar mendalam untuk teknik backend dan UX</li>
+        </ul>
+      </div>
+
+      <aside class="visual-right" aria-hidden="false">
+        <div class="carousel" id="carousel-3">
+          <div class="slide show" style="background-image:url('/img/oktober1.jpg');"></div>
+          <div class="slide" style="background-image:url('/img/oktober2.png');"></div>
+          <div class="slide" style="background-image:url('/img/oktober3.jpg');"></div>
+        </div>
+        <div class="dots" data-carousel="carousel-3"></div>
+      </aside>
+    </section>
   </main>
 
+  <footer>
+    © 2025 Reyna Aydhina Maritza — ASTRA Project (PKL Datasoft Solusi Indonesia)
+  </footer>
+
+  <!-- ---------- SCRIPTS: parallax, particles, carousel, reveal ---------- -->
   <script>
-    // SLIDER
-document.querySelectorAll(".slider-wrapper").forEach((wrapper) => {
-  const slider = wrapper.querySelector(".slider");
-  const slides = slider.querySelector(".slides");
-  const images = slides.querySelectorAll("img");
-  const prev = wrapper.querySelector(".prev");
-  const next = wrapper.querySelector(".next");
+    /* ---------- PARALLAX MOTION for layers ---------- */
+    (function(){
+      const l0 = document.querySelector('.parallax-layer.layer-0');
+      const l1 = document.querySelector('.parallax-layer.layer-1');
+      window.addEventListener('scroll', () => {
+        const s = window.scrollY;
+        // subtle offsets
+        l0.style.transform = `translateY(${s * 0.12}px)`;
+        l1.style.transform = `translateY(${s * 0.06}px)`;
+      }, {passive:true});
+    })();
 
-  let index = 0;
-  function showSlide(i) {
-    if (i < 0) index = images.length - 1;
-    else if (i >= images.length) index = 0;
-    else index = i;
-    slides.style.transform = `translateX(-${index * 100}%)`;
-  }
+    /* ---------- PARTICLE CANVAS (lightweight) ---------- */
+    (function(){
+      const canvas = document.getElementById('particle-canvas');
+      const ctx = canvas.getContext('2d');
+      let w=canvas.width=innerWidth, h=canvas.height=innerHeight;
+      window.addEventListener('resize',()=>{ w=canvas.width=innerWidth; h=canvas.height=innerHeight; });
 
-  prev.addEventListener("click", () => showSlide(index - 1));
-  next.addEventListener("click", () => showSlide(index + 1));
-});
+      const N = Math.max(40, Math.floor((w*h)/90000)); // scale with viewport
+      const particles = [];
+      for(let i=0;i<N;i++){
+        particles.push({
+          x: Math.random()*w,
+          y: Math.random()*h,
+          r: Math.random()*1.8 + 0.6,
+          vx: (Math.random()-0.5)*0.15,
+          vy: (Math.random()-0.5)*0.15,
+          alpha: 0.12 + Math.random()*0.18
+        });
+      }
 
-// Scroll animation
-document.addEventListener("scroll", () => {
-  document.querySelectorAll(".fade-in").forEach((el) => {
-    const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight - 100) {
-      el.classList.add("visible");
-    }
-  });
-});
+      function draw(){
+        ctx.clearRect(0,0,w,h);
+        for(const p of particles){
+          p.x += p.vx;
+          p.y += p.vy;
+          // wrap
+          if(p.x < -10) p.x = w + 10;
+          if(p.x > w+10) p.x = -10;
+          if(p.y < -10) p.y = h + 10;
+          if(p.y > h+10) p.y = -10;
+          // glow
+          const g = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*6);
+          g.addColorStop(0, `rgba(255,80,80,${p.alpha*0.6})`);
+          g.addColorStop(0.5, `rgba(153,11,11,${p.alpha*0.15})`);
+          g.addColorStop(1, `rgba(153,11,11,0)`);
+          ctx.fillStyle = g;
+          ctx.beginPath();
+          ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+          ctx.fill();
+        }
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
 
-// Highlight active nav link
-const sections = document.querySelectorAll(".month");
-const navLinks = document.querySelectorAll(".month-nav a");
+    /* ---------- REVEAL ON SCROLL ---------- */
+    (function(){
+      const reveals = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting) e.target.classList.add('visible');
+        });
+      }, {threshold: 0.18});
+      reveals.forEach(r=>observer.observe(r));
+    })();
 
-window.addEventListener("scroll", () => {
-  let current = "";
-  sections.forEach((sec) => {
-    const top = window.scrollY;
-    const offset = sec.offsetTop - 150;
-    const height = sec.offsetHeight;
-    if (top >= offset && top < offset + height) {
-      current = sec.getAttribute("id");
-    }
-  });
+    /* ---------- CAROUSEL: automatic fade + zoom (per carousel) ---------- */
+    (function(){
+      const carousels = document.querySelectorAll('.carousel');
+      carousels.forEach(carousel=>{
+        const slides = Array.from(carousel.querySelectorAll('.slide'));
+        const id = carousel.id;
+        const dotsContainer = document.querySelector(`.dots[data-carousel="${id}"]`);
+        // create dots
+        slides.forEach((s,i)=>{
+          const dot = document.createElement('div');
+          dot.className = 'dot' + (i===0? ' active':'');
+          dot.addEventListener('click', ()=> goTo(i));
+          dotsContainer.appendChild(dot);
+        });
+        const dots = Array.from(dotsContainer.children);
+        let idx = 0;
+        let anim;
+        function show(i){
+          slides.forEach((s,si)=> s.classList.toggle('show', si===i));
+          dots.forEach((d,di)=> d.classList.toggle('active', di===i));
+        }
+        function goTo(i){
+          idx = i;
+          show(idx);
+        }
+        function next(){
+          idx = (idx+1) % slides.length;
+          show(idx);
+        }
+        // initial
+        show(0);
+        // autoplay with gentle randomization to feel organic
+        setInterval(next, 4200 + Math.floor(Math.random()*800));
+      });
+    })();
 
-  navLinks.forEach((link) => {
-    link.classList.remove("active");
-    if (link.getAttribute("href") === "#" + current) {
-      link.classList.add("active");
-    }
-  });
-});
-
-// Toggle deskripsi 
-document.querySelectorAll(".card").forEach(card => {
-  const desc = card.querySelector(".desc"); // bukan desc-always
-  const btn = card.querySelector(".toggle-btn");
-  if (btn && desc) {
-    btn.addEventListener("click", () => {
-      desc.classList.toggle("open");
-      btn.textContent = desc.classList.contains("open") ? "Tutup Deskripsi" : "Buka Deskripsi";
-    });
-  }
-});
-
+    /* ---------- NAV ACTIVE (highlight simple) ---------- */
+    (function(){
+      const navLinks = document.querySelectorAll('nav.topbar a');
+      const sections = {
+        overview: document.getElementById('overview'),
+        story: document.getElementById('story'),
+        hasil: document.getElementById('hasil')
+      };
+      function highlight(){
+        const top = window.scrollY + innerHeight/3;
+        let active = 'overview';
+        if(top >= sections.story.offsetTop) active = 'story';
+        if(top >= sections.hasil.offsetTop) active = 'hasil';
+        navLinks.forEach(a=> a.classList.toggle('active', a.getAttribute('href') === '#'+active));
+      }
+      window.addEventListener('scroll', highlight, {passive:true});
+      highlight();
+    })();
   </script>
 </body>
 </html>
+ 

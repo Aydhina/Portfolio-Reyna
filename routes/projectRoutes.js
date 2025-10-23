@@ -27,7 +27,28 @@ router.post("/project/delete/:id", projectController.deleteProject);
 
 // Route manual untuk halaman Astra
 router.get("/pkl/astra", (req, res) => {
-  res.render("pkl/astra");
+  const bulan = [
+    {
+      id:"juli",
+      nama:"Juli",
+      img:["/img/pkl/juli1.png","/img/juli2.png","/img/juli3.png","/img/juli4.png"], 
+      desc:"Pada awal saya memasuki kegiatan PKL..."
+    },
+    {
+      id:"agustus",
+      nama:"Agustus",
+      img:["/img/agust1.png","/img/agust2.png","/img/agust3.png"],
+      desc:[
+        "Setelah memahami materi awal...",
+        "Dari video pembelajaran tersebut...",
+        "Tidak hanya itu, saya juga mulai memahami..."
+      ]
+    },
+    // dst untuk september & oktober
+  ];
+
+  res.render("pkl/astra", { title: "Halaman Astra", bulan });
 });
+
 
 module.exports = router;

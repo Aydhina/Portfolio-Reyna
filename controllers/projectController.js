@@ -68,3 +68,4 @@ exports.deleteProject = async (req, res) => {
     res.status(500).send("Error delete project: " + err.message);
   }
 };
+
