@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Toko Online</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Merriweather:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/project-pkl.css" />
+  </head>
+  <body>
+    <!-- PARALLAX LAYERS -->
+    <div class="parallax-layer layer-0" aria-hidden="true"></div>
+    <div class="parallax-layer layer-1" aria-hidden="true"></div>
+    <canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-logo">E-commerce</div>
+        <div class="nav-toggle" id="nav-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="#Beranda">Beranda</a></li>
+          <li><a href="#Dashboard1">Dashboard</a></li>
+          <li><a href="#Cart">Cart</a></li>
+          <li><a href="#Dashboard2">Dashboard</a></li>
+          <li><a href="#Data Barang">Data Barang</a></li>
+          <li><a href="#Invoice">Invoice</a></li>
+          <li><a href="#Auth">Auth</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- HERO (tetap persis) -->
+    <header class="hero" role="banner">
+      <div class="hero-content">
+        <h1>Toko Online</h1>
+        <p>
+          Dokumentasi & Penjelasan mengenai projek aplikasi web
+          <span>Toko Online</span>.
+        </p>
+      </div>
+    </header>
+
+    <!-- MAIN -->
+    <main>
+      <!-- STAGE INTRO BOX -->
+      <section id="Beranda" class="stage stage-intro reveal">
+        <div class="story-left" style="grid-column: 1 / -1">
+          <span id="overview" class="kicker">Beranda</span>
+          <h2 class="proj-title">apa itu web Toko Online?</h2>
+          <p class="lead">
+            <strong>Toko online</strong> adalah sebuah aplikasi toko berbasis
+            digital yang memungkinkan pengguna untuk melakukan kegiatan jual
+            beli secara praktis melalui internet. Melalui platform ini,
+            pelanggan dapat melihat daftar produk, membaca deskripsi barang,
+            melihat harga, hingga melakukan transaksi tanpa harus datang
+            langsung ke toko fisik. Sistem toko online umumnya terdiri dari
+            tampilan antarmuka (frontend) untuk pengguna, serta backend yang
+            mengatur logika seperti pengelolaan keranjang, proses pemesanan, dan
+            pembayaran. Dengan adanya toko online, penjual dapat menjangkau
+            pelanggan lebih luas, sementara pembeli dapat berbelanja kapan saja
+            dan di mana saja dengan mudah.
+          </p>
+          <p class="lead">
+            Proyek web toko online ini merupakan hasil dari tutorial video yang
+            diberikan oleh
+            <strong>PT Datasoft Solusi Indonesia</strong> sebagai bagian dari
+            program pengenalan terhadap penggunaan framework PHP CodeIgniter.
+            Melalui proyek ini, peserta diperkenalkan pada konsep dasar
+            pengembangan aplikasi berbasis MVC (Model–View–Controller), termasuk
+            bagaimana cara menghubungkan tampilan dengan database, mengatur
+            logika bisnis di controller, serta menampilkan data produk secara
+            dinamis di halaman web. Proyek ini juga berfungsi sebagai latihan
+            praktik untuk memahami alur kerja framework PHP modern, mulai dari
+            manajemen session, pemrosesan data, hingga pembuatan fitur keranjang
+            belanja dan checkout yang sederhana namun fungsional.
+          </p>
+        </div>
+      </section>
+
+      <!-- Stage 1 -->
+      <div id="Dashboard1" class="stage-wrapper reveal">
+        <!-- Kolom kiri -->
+        <section class="stage">
+          <div class="story-left">
+            <span class="kicker">Pelanggan</span>
+            <h2 class="proj-title">Dashboard</h2>
+            <div
+              class="text-collapse"
+              style="max-height: 150px; overflow: hidden; transition: 0.5s"
+            >
+              <p class="lead">
+                Page Dashboard berfungsi sebagai halaman utama dalam aplikasi
+                toko online yang menampilkan daftar produk kepada pengguna
+                setelah berhasil login. Pada halaman ini, pengguna dapat melihat
+                gambar, nama, deskripsi, dan harga produk, serta melakukan aksi
+                seperti menambah barang ke keranjang atau melihat detail produk.
+                Selain itu, pengguna juga bisa melihat kategori barang pada
+                navbar, seperti elektronik, pakaian pria, pakaian wanita,
+                pakaian anak-anak, dan peralatan olahraga, yang diatur melalui
+                controller Kategori untuk menampilkan produk berdasarkan
+                jenisnya. Secara teknis, halaman ini dibangun menggunakan
+                framework CodeIgniter dengan konsep MVC, di mana controller
+                Dashboard mengatur alur logika seperti pengecekan login,
+                pengelolaan keranjang belanja, proses pesanan, dan pemanggilan
+                data dari model Model_barang serta Model_invoice. Sementara
+                bagian view menampilkan data produk secara dinamis melalui
+                perulangan PHP dan mempercantik tampilannya dengan CSS serta
+                komponen Bootstrap seperti carousel dan card produk. Dengan
+                struktur ini, halaman dashboard tidak hanya berfungsi sebagai
+                tampilan utama yang menarik secara visual, tetapi juga menjadi
+                pusat interaksi pengguna dalam menjelajahi produk dan kategori
+                barang di sistem toko online.
+              </p>
+            </div>
+            <button
+              class="read-more-btn"
+              style="
+                background: none;
+                border: none;
+                color: var(--accent);
+                cursor: pointer;
+                font-weight: 600;
+              "
+            >
+              Baca Selengkapnya..
+            </button>
+            <ul class="features">
+              <li>Dokumentasi: Dashboard Pelanggan</li>
+            </ul>
+          </div>
+        </section>
+        <!-- Kolom kanan = carousel -->
+        <aside class="visual-right">
+          <div class="carousel" id="carousel-1">
+            <div
+              class="slide show"
+              style="
+                background-image: url('/img/toko_online/dashboard-pelanggan.png');
+              "
+            ></div>
+            <div
+              class="slide"
+              style="
+                background-image: url('/img/toko_online/kategori-pelanggan.png');
+              "
+            ></div>
+          </div>
+          <div class="dots" data-carousel="carousel-1"></div>
+        </aside>
+      </div>
+
+      <!-- Stage 2 -->
+      <div id="Cart" class="stage-wrapper reveal">
+        <section class="stage">
+          <div class="story-left">
+            <span class="kicker">Pelanggan</span>
+            <h2 class="proj-title">Cart</h2>
+            <div
+              class="text-collapse"
+              style="max-height: 150px; overflow: hidden; transition: 0.5s"
+            >
+              <p class="lead">
+                Proses checkout pada aplikasi toko online berbasis CodeIgniter
+                ini diatur melalui controller Dashboard, yang mengelola alur
+                transaksi dari pemilihan produk hingga pesanan selesai. Saat
+                pengguna menekan “Tambah ke Keranjang”, fungsi
+                tambah_ke_keranjang() mengambil data produk dari Model_barang
+                lalu menambahkannya ke library Cart. Halaman keranjang belanja
+                ditampilkan lewat detail_keranjang(), dan isi keranjang bisa
+                dihapus dengan hapus_keranjang(). Pada tahap checkout, fungsi
+                pembayaran() menampilkan form untuk mengisi data pengiriman dan
+                memilih metode pembayaran. Setelah tombol “Pesan” diklik,
+                proses_pesanan() memanggil Model_invoice->index() untuk
+                menyimpan transaksi ke database. Jika berhasil, sistem
+                menampilkan notifikasi bahwa pesanan telah diproses. Selain itu,
+                fungsi detail($id) menampilkan detail lengkap produk sebelum
+                dibeli. Seluruh proses ini menggambarkan alur checkout sederhana
+                berbasis pola MVC (Model-View-Controller) pada CodeIgniter.
+              </p>
+            </div>
+            <button
+              class="read-more-btn"
+              style="
+                background: none;
+                border: none;
+                color: var(--accent);
+                cursor: pointer;
+                font-weight: 600;
+              "
+            >
+              Baca Selengkapnya..
+            </button>
+            <ul class="features">
+              <li>Dokumentasi: Tampilan Detail barang & Cart pelanggan</li>
+            </ul>
+          </div>
+        </section>
+        <aside class="visual-right">
+          <div class="carousel" id="carousel-2">
+            <div
+              class="slide show"
+              style="
+                background-image: url('/img/toko_online/detail-pelanggan.png');
+              "
+            ></div>
+            <div
+              class="slide"
+              style="
+                background-image: url('/img/toko_online/cart-pelanggan.png');
+              "
+            ></div>
+            <div
+              class="slide show"
+              style="
+                background-image: url('/img/toko_online/detailcart-pelanggan.png');
+              "
+            ></div>
+            <div
+              class="slide"
+              style="
+                background-image: url('/img/toko_online/success-pelanggan.png');
+              "
+            ></div>
+          </div>
+          <div class="dots" data-carousel="carousel-2"></div>
+        </aside>
+      </div>
+
+      <!-- Stage 3 -->
+      <div id="Dashboard2" class="stage-wrapper reveal">
+        <section class="stage">
+          <div class="story-left">
+            <span class="kicker">Admin</span>
+            <h2 class="proj-title">Dashboard</h2>
+            <div
+              class="text-collapse"
+              style="max-height: 150px; overflow: hidden; transition: 0.5s"
+            >
+              <p class="lead">
+                Halaman ini merupakan Dashboard Admin pada aplikasi toko online
+                berbasis CodeIgniter yang menampilkan ringkasan informasi
+                penting seperti pendapatan bulanan, tahunan, progres tugas, dan
+                jumlah permintaan tertunda melalui beberapa card statistik
+                bergaya Bootstrap. Tiap card dilengkapi ikon dari Font Awesome
+                untuk memperjelas maknanya. Bagian kontrol diatur oleh
+                controller Dashboard_admin, di mana fungsi __construct()
+                memastikan hanya pengguna dengan role_id bernilai 1 (admin) yang
+                dapat mengakses halaman ini, dan menampilkan pesan “Anda Belum
+                Login!” jika belum masuk. Fungsi index() kemudian memuat view
+                header, sidebar, admin/dashboard, dan footer agar tampilan
+                dashboard admin terbentuk secara utuh dan terstruktur.
+              </p>
+            </div>
+            <button
+              class="read-more-btn"
+              style="
+                background: none;
+                border: none;
+                color: var(--accent);
+                cursor: pointer;
+                font-weight: 600;
+              "
+            >
+              Baca Selengkapnya..
+            </button>
+            <ul class="features">
+              <li>Dokumentasi: Tampilan Dashboard Admin</li>
+            </ul>
+          </div>
+        </section>
+        <aside class="visual-right">
+          <div class="carousel" id="carousel-3">
+            <div
+              class="slide show"
+              style="
+                background-image: url('/img/toko_online/dashboard-admin.png');
+              "
+            ></div>
+          </div>
+          <div class="dots" data-carousel="carousel-3"></div>
+        </aside>
+      </div>
+
+      <!-- Stage 4 -->
+      <div id="Data Barang" class="stage-wrapper reveal">
+        <section class="stage">
+          <div class="story-left">
+            <span class="kicker">Admin</span>
+            <h2 class="proj-title">Data Barang</h2>
+            <div
+              class="text-collapse"
+              style="max-height: 150px; overflow: hidden; transition: 0.5s"
+            >
+              <p class="lead">
+                Halaman ini merupakan manajemen data barang untuk admin dalam
+                aplikasi toko online berbasis CodeIgniter. Melalui controller
+                Data_barang, admin dapat melakukan operasi CRUD (Create, Read,
+                Update, Delete) terhadap data produk. Pada fungsi index(), data
+                barang diambil dari Model_barang dan ditampilkan dalam tabel
+                lengkap dengan tombol aksi untuk melihat, mengedit, dan
+                menghapus. Fungsi tambah_aksi() menangani proses penambahan
+                produk baru, termasuk upload gambar dengan konfigurasi direktori
+                ./upload dan format file tertentu. Fitur edit dan update
+                memungkinkan admin memperbarui informasi produk, sedangkan
+                fungsi hapus() digunakan untuk menghapus data berdasarkan id.
+                Dari sisi tampilan, halaman ini menggunakan komponen Bootstrap
+                untuk membuat tabel data, tombol aksi, serta modal form input
+                produk yang muncul saat menekan tombol “Tambah Barang”. Secara
+                keseluruhan, kode ini membentuk sistem kelola produk yang
+                interaktif, rapi, dan terintegrasi antara controller, model, dan
+                view sesuai pola MVC CodeIgniter.
+              </p>
+            </div>
+            <button
+              class="read-more-btn"
+              style="
+                background: none;
+                border: none;
+                color: var(--accent);
+                cursor: pointer;
+                font-weight: 600;
+              "
+            >
+              Baca Selengkapnya..
+            </button>
+
+            <ul class="features">
+              <li>Dokumentasi: Tampilan kelola data barang pelanggan</li>
+            </ul>
+          </div>
+        </section>
+        <aside class="visual-right">
+          <div class="carousel" id="carousel-4">
+            <div
+              class="slide show"
+              style="
+                background-image: url('/img/toko_online/databrg-admin.png');
+              "
+            ></div>
+            <div
+              class="slide"
+              style="
+                background-image: url('/img/toko_online/inputbrg-admin.png');
+              "
+            ></div>
+          </div>
+          <div class="dots" data-carousel="carousel-4"></div>
+        </aside>
+      </div>
+
+      <!-- Stage 5 -->
+      <div id="Invoice" class="stage-wrapper reveal">
+        <section class="stage">
+          <div class="story-left">
+            <span class="kicker">Admin</span>
+            <h2 class="proj-title">Invoice</h2>
+            <div
+              class="text-collapse"
+              style="max-height: 150px; overflow: hidden; transition: 0.5s"
+            >
+              <p class="lead">
+                Halaman ini berfungsi untuk menampilkan daftar invoice pemesanan
+                produk yang dilakukan oleh pelanggan dan hanya dapat diakses
+                oleh admin setelah login. Pada tampilan HTML, terdapat tabel
+                berisi informasi seperti ID invoice, nama pemesan, alamat
+                pengiriman, tanggal pemesanan, batas pembayaran, serta tombol
+                “Detail” untuk melihat rincian pesanan. Pada sisi backend,
+                controller Invoice melakukan pengecekan login menggunakan
+                role_id, lalu memanggil data dari Model_invoice melalui fungsi
+                tampil_data() untuk ditampilkan pada view admin/invoice. Saat
+                tombol “Detail” diklik, fungsi detail($id_invoice) akan
+                memanggil data invoice tertentu dan daftar pesanan terkait dari
+                model, kemudian menampilkannya di halaman detail_invoice.
+                Struktur ini mengikuti pola MVC (Model-View-Controller)
+                CodeIgniter, sehingga data, logika, dan tampilan terpisah dengan
+                rapi dan mudah dikelola.
+              </p>
+            </div>
+            <button
+              class="read-more-btn"
+              style="
+                background: none;
+                border: none;
+                color: var(--accent);
+                cursor: pointer;
+                font-weight: 600;
+              "
+            >
+              Baca Selengkapnya..
+            </button>
+
+            <ul class="features">
+              <li>Dokumentasi: Tampilan invoice</li>
+            </ul>
+          </div>
+        </section>
+        <aside class="visual-right">
+          <div class="carousel" id="carousel-5">
+            <div
+              class="slide show"
+              style="
+                background-image: url('/img/toko_online/invoice-admin.png');
+              "
+            ></div>
+            <div
+              class="slide"
+              style="
+                background-image: url('/img/toko_online/detailinvoice-admin.png');
+              "
+            ></div>
+          </div>
+          <div class="dots" data-carousel="carousel-5"></div>
+        </aside>
+      </div>
+
+      <!-- Stage  6-->
+      <div id="Auth" class="stage-wrapper reveal">
+        <section class="stage">
+          <div class="story-left">
+            <span class="kicker">Auth</span>
+            <h2 class="proj-title">Login & Register</h2>
+            <div
+              class="text-collapse"
+              style="max-height: 150px; overflow: hidden; transition: 0.5s"
+            >
+              <p class="lead">
+                Bagian ini merupakan fitur autentikasi pengguna pada aplikasi
+                toko online berbasis CodeIgniter yang terdiri dari halaman login
+                dan registrasi (daftar akun). Pada sisi backend, controller Auth
+                berfungsi memproses login dengan validasi form untuk memastikan
+                username dan password diisi. Jika validasi gagal, halaman login
+                akan dimuat ulang dengan pesan kesalahan. Bila data valid,
+                sistem akan memanggil fungsi cek_login() dari Model_auth untuk
+                mencocokkan data pengguna di database. Jika cocok, session
+                username dan role_id disimpan, lalu pengguna diarahkan ke
+                halaman berbeda sesuai perannya — admin menuju dashboard_admin,
+                dan user menuju welcome. Terdapat juga fungsi logout() yang
+                menghapus session agar pengguna keluar dari sistem. Sementara
+                pada sisi tampilan, halaman login dan registrasi menggunakan
+                Bootstrap agar responsif dan rapi, dilengkapi pesan validasi
+                otomatis dari CodeIgniter untuk memberi umpan balik langsung
+                saat pengguna salah mengisi form.
+              </p>
+            </div>
+            <button
+              class="read-more-btn"
+              style="
+                background: none;
+                border: none;
+                color: var(--accent);
+                cursor: pointer;
+                font-weight: 600;
+              "
+            >
+              Baca Selengkapnya..
+            </button>
+            <ul class="features">
+              <li>Dokumentasi: Tampilan Autentikasi</li>
+            </ul>
+          </div>
+        </section>
+        <aside class="visual-right">
+          <div class="carousel" id="carousel-6">
+            <div
+              class="slide"
+              style="
+                background-image: url('/img/toko_online/register-tokoonline.png');
+              "
+            ></div>
+            <div
+              class="slide"
+              style="
+                background-image: url('/img/toko_online/login-tokoonline.png');
+              "
+            ></div>
+          </div>
+          <div class="dots" data-carousel="carousel-6"></div>
+        </aside>
+      </div>
+    </main>
+
+    <footer>
+      © 2025 Reyna Aydhina Maritza — Project Toko Online (PKL Datasoft Solusi
+      Indonesia)
+    </footer>
+
+    <script src="/js/project-pkl.js"></script>
+  </body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Inventori Barang</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Merriweather:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/project-pkl.css" />
+  </head>
+  <body>
+    <!-- PARALLAX LAYERS -->
+    <div class="parallax-layer layer-0" aria-hidden="true"></div>
+    <div class="parallax-layer layer-1" aria-hidden="true"></div>
+    <canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-logo">CRUD</div>
+        <div class="nav-toggle" id="nav-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="#Beranda">Beranda</a></li>
+          <li><a href="#Dashboard">Dashboard</a></li>
+          <li><a href="#Data">Data</a></li>
+          <li><a href="#Action">Action</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- HERO (tetap persis) -->
+    <header class="hero" role="banner">
+      <div class="hero-content">
+        <h1>Inventori Barang</h1>
+        <p>
+          Dokumentasi & Penjelasan mengenai projek aplikasi web
+          <span>Inventori Barang</span>.
+        </p>
+      </div>
+    </header>
+
+    <!-- MAIN -->
+    <main>
+      <!-- STAGE INTRO BOX -->
+      <section id="Beranda" class="stage stage-intro reveal">
+        <div class="story-left" style="grid-column: 1 / -1">
+          <span id="overview" class="kicker">Beranda</span>
+          <h2 class="proj-title">apa itu web Inventori Barang?</h2>
+          <p class="lead">
+            Aplikasi <strong>Inventori Barang</strong> adalah sistem berbasis web yang
+             digunakan untuk mengelola data stok barang secara terstruktur dan efisien. 
+             Melalui aplikasi ini, pengguna dapat melakukan proses CRUD (Create, Read, 
+             Update, Delete) seperti menambah, menampilkan, mengubah, dan menghapus data 
+             barang secara dinamis tanpa perlu memuat ulang halaman, berkat penggunaan 
+             teknologi AJAX dan framework CodeIgniter. Tujuan utamanya adalah mempermudah 
+             pengelolaan inventaris, meminimalkan kesalahan pencatatan manual, serta 
+             mempercepat proses pemantauan ketersediaan barang di gudang atau toko.
+          </p>
+        </div>
+      </section>
+
+      <!-- Stage 1 -->
+      <div id="Dashboard" class="stage-wrapper reveal">
+        <!-- Kolom kiri -->
+        <section class="stage">
+          <div class="story-left">
+            <span class="kicker">Dashboard</span>
+            <h2 class="proj-title">Dashboard</h2>
+            <div
+              class="text-collapse"
+              style="max-height: 150px; overflow: hidden; transition: 0.5s"
+            >
+              <p class="lead">
+                Halaman utama aplikasi inventori barang ini berfungsi sebagai 
+                pusat pengelolaan data barang yang ditampilkan dalam tabel 
+                interaktif berbasis Bootstrap 4. Pada bagian atas halaman, 
+                terdapat tombol “Tambah Data” yang memicu modal form dengan 
+                atribut data-toggle="modal" dan memanggil fungsi submit('tambah') 
+                untuk menyiapkan form input kosong. Tabel data barang diisi 
+                secara dinamis melalui fungsi JavaScript ambilData(), yang 
+                melakukan request AJAX POST ke URL page/ambildata. Controller 
+                Page memanggil model My_model untuk mengambil semua data dari 
+                tabel tb_barang dan mengirimkannya kembali dalam format JSON. 
+                Data tersebut kemudian dirender ke dalam elemen 
+                menggunakan loop JavaScript, sehingga setiap perubahan di database 
+                langsung terlihat tanpa perlu reload halaman.
+              </p>
+            </div>
+            <button
+              class="read-more-btn"
+              style="
+                background: none;
+                border: none;
+                color: var(--accent);
+                cursor: pointer;
+                font-weight: 600;
+              "
+            >
+              Baca Selengkapnya..
+            </button>
+            <!-- <ul class="features">
+              <li>Dokumentasi: - </li>
+            </ul> -->
+          </div>
+        </section>
+        <!-- Kolom kanan = carousel -->
+        <aside class="visual-right">
+          <div class="carousel" id="carousel-1">
+            <div
+              class="slide show"
+              style="
+                background-image: url('/img/inventori_barang/dashboard-InventoriBarang.png');
+              "
+            ></div>
+          </div>
+          <div class="dots" data-carousel="carousel-1"></div>
+        </aside>
+      </div>
+
+      <!-- Stage 2 -->
+      <div id="Data" class="stage-wrapper reveal">
+        <section class="stage">
+          <div class="story-left">
+            <span class="kicker">Data</span>
+            <h2 class="proj-title">Form input data barang</h2>
+            <div
+              class="text-collapse"
+              style="max-height: 150px; overflow: hidden; transition: 0.5s"
+            >
+              <p class="lead">
+                Form input barang terletak di dalam modal Bootstrap yang memiliki 
+                beberapa field, yaitu kode_barang, nama_barang, harga, dan stok. 
+                Saat pengguna menekan tombol “Tambah”, fungsi tambahdata() akan 
+                mengambil nilai dari input menggunakan jQuery ($("[name='kode_barang']").val(), 
+                dst.) dan mengirimnya ke controller lewat AJAX ke page/tambahdata. 
+                Di sisi server, controller melakukan validasi input (misalnya jika 
+                ada field kosong, sistem akan mengembalikan pesan error). Jika semua 
+                valid, data disimpan menggunakan method tambahdata() dari model My_model, 
+                yang memanggil $this->db->insert($table, $data). Setelah penyimpanan 
+                berhasil, hasil AJAX mengosongkan form dan memanggil kembali ambilData() 
+                untuk memperbarui tabel secara real-time tanpa refresh.
+              </p>
+            </div>
+            <button
+              class="read-more-btn"
+              style="
+                background: none;
+                border: none;
+                color: var(--accent);
+                cursor: pointer;
+                font-weight: 600;
+              "
+            >
+              Baca Selengkapnya..
+            </button>
+            <!-- <ul class="features">
+              <li>Dokumentasi: - </li>
+            </ul> -->
+          </div>
+        </section>
+        <aside class="visual-right">
+          <div class="carousel" id="carousel-2">
+            <div
+              class="slide show"
+              style="
+                background-image: url('/img/inventori_barang/inputBrg-InventoriBarang.png');
+              "
+            ></div>
+          </div>
+          <div class="dots" data-carousel="carousel-2"></div>
+        </aside>
+      </div>
+
+      <!-- Stage 3 -->
+      <div id="Action" class="stage-wrapper reveal">
+        <section class="stage">
+          <div class="story-left">
+            <span class="kicker">Action</span>
+            <h2 class="proj-title">Update & Delete</h2>
+            <div
+              class="text-collapse"
+              style="max-height: 150px; overflow: hidden; transition: 0.5s"
+            >
+              <p class="lead">
+                Sistem edit dan hapus barang juga menggunakan pendekatan AJAX 
+                untuk efisiensi. Tombol “Ubah” pada tabel memanggil fungsi 
+                submit(id) dengan parameter ID barang. Fungsi ini mengirim 
+                request ke page/ambilId untuk mengambil data spesifik berdasarkan 
+                ID melalui method ambilId() pada model ($this->db->get_where()), 
+                kemudian mengisi form input di modal dengan data hasil JSON agar 
+                pengguna dapat mengeditnya. Setelah tombol “Ubah” diklik, fungsi 
+                ubahdata() mengirim data baru ke page/ubahdata, yang memanggil 
+                $this->db->update() untuk memperbarui record di database. Sedangkan 
+                fitur hapus dijalankan lewat fungsi hapusdata(id) yang menampilkan 
+                konfirmasi confirm(), lalu jika disetujui, mengirimkan ID ke 
+                controller page/hapusdata. Controller memanggil hapusdata() pada 
+                model ($this->db->delete()), dan setelah sukses, tabel diperbarui 
+                lagi dengan ambilData() agar perubahan langsung terlihat.
+              </p>
+            </div>
+            <button
+              class="read-more-btn"
+              style="
+                background: none;
+                border: none;
+                color: var(--accent);
+                cursor: pointer;
+                font-weight: 600;
+              "
+            >
+              Baca Selengkapnya..
+            </button>
+            <!-- <ul class="features">
+              <li>Dokumentasi: - </li>
+            </ul> -->
+          </div>
+        </section>
+        <aside class="visual-right">
+          <div class="carousel" id="carousel-3">
+            <div
+              class="slide show"
+              style="
+                background-image: url('/img/inventori_barang/edit-InventoriBarang.png');
+              "
+            ></div> 
+            <div
+              class="slide show"
+              style="
+                background-image: url('/img/inventori_barang/delete-InventoryBarang.png');
+              "
+            ></div>
+          </div>
+          <div class="dots" data-carousel="carousel-3"></div>
+        </aside>
+      </div>
+
+    </main>
+
+    <footer>
+      © 2025 Reyna Aydhina Maritza — Project Inventori Barang (PKL Datasoft Solusi
+      Indonesia)
+    </footer>
+
+    <script src="/js/project-pkl.js"></script>
+  </body>
+</html>
