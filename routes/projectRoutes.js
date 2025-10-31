@@ -37,8 +37,8 @@ router.get("/pkl/astra", (req, res) => {
 router.get("/pkl/toko_online", (req, res) => {
   res.render("pkl/toko_online", { title: "PKL - Toko Online", session: req.session });
 });
-router.get("/pkl/inventory_barang", (req, res) => {
-  res.render("pkl/inventory_barang", { title: "PKL - Inventory Barang", session: req.session });
+router.get("/pkl/inventori_barang", (req, res) => {
+  res.render("pkl/inventori_barang", { title: "PKL - Inventory Barang", session: req.session });
 });
 
 // --- CRUD PROJECT (login required) ---
