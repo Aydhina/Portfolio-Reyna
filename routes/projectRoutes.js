@@ -9,7 +9,7 @@ const multer = require("multer");
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const cloudinary = require("cloudinary").v2;
 
-// Konfigurasi Cloudinary
+// Konfigurasi Cloudinary (Menggunakan ENV)
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -36,6 +36,17 @@ router.post("/project/add", auth, upload.single("thumbnail"), projectController.
 router.post("/project/edit/:id", auth, upload.single("thumbnail"), projectController.updateProject);
 router.post("/project/delete/:id", auth, projectController.deleteProject);
 
+// --- ROUTES BARU /PKL ---
+router.get("/pkl", (req, res) => {
+  // Jika /pkl membutuhkan data dari controller, panggil controller di sini
+  // Sementara, ini hanya untuk memastikan route-nya berfungsi
+  res.send("Ini adalah halaman PKL!");
+});
+// Contoh dengan parameter
+router.get("/pkl/:id", (req, res) => {
+  res.send(`Detail PKL untuk ID: ${req.params.id}`);
+});
+
 // Auth
 router.get("/login", (req, res) => {
   res.render("login");
@@ -51,12 +62,14 @@ router.post("/login", async (req, res) => {
   if (!match) return res.send("Password salah");
 
   req.session.isLogin = true;
-  res.redirect("/api/home"); // redirect sesuai Vercel prefix
+  // --- PERBAIKAN KRITIS: REDIRECT KE /home (TANPA /api) ---
+  res.redirect("/home"); 
 });
 
 router.get("/logout", (req, res) => {
   req.session.destroy(() => {
-    res.redirect("/api/home");
+    // --- PERBAIKAN KRITIS: REDIRECT KE / (TANPA /api) ---
+    res.redirect("/");
   });
 });
 
