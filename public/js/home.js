@@ -241,3 +241,15 @@ if (loginForm) {
     // biarkan default submit
   });
 }
+
+  const logoutBtn = document.getElementById('logoutBtn');
+
+  logoutBtn.addEventListener('click', function(e) {
+    e.preventDefault(); // hentikan redirect default
+    const confirmLogout = confirm("Apakah kamu yakin ingin logout?");
+    if (confirmLogout) {
+      // kalau user klik "OK", arahkan ke /logout
+      window.location.href = logoutBtn.href;
+    }
+    // kalau user klik "Cancel", tidak terjadi apa-apa
+  });
