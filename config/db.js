@@ -14,4 +14,6 @@ const connectDB = async () => {
   }
 };
 
+console.log("Using database:", process.env.MONGO_URI);
+
 module.exports = connectDB;
