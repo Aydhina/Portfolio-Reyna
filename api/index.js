@@ -1,56 +1,49 @@
 const express = require("express");
 const path = require("path");
+const dotenv = require("dotenv");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
-const dotenv = require("dotenv");
-// serverless-http dihapus, karena tidak diperlukan lagi
+const connectDB = require("../config/db"); // sesuaikan kalau file ini di api/
+const projectRoutes = require("../routes/projectRoutes");
 
 dotenv.config();
 
 const app = express();
 
-// --- PENGATURAN PATH ABSOLUT KRITIS UNTUK VERCEL ---
-// Menentukan path absolut dari root proyek, ini lebih stabil di Vercel
-const rootDir = path.resolve(__dirname, '..'); // '..' dari api/index.js adalah root
+// --- Koneksi DB ---
+connectDB();
 
-// UBAH SEMUA REQUIRE RELATIF menjadi ABSOLUT
-const connectDB = require(path.join(rootDir, "config/db"));
-const projectRoutes = require(path.join(rootDir, "routes/projectRoutes")); 
-
-// 1. Middleware
+// --- Middleware dasar ---
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "../public")));
 
-// 2. Asset Statis (public)
-// Gunakan path absolut
-app.use(express.static(path.join(rootDir, "public")));
+// --- Trust proxy (wajib di Vercel) ---
+app.set("trust proxy", 1);
 
-// 3. Session
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: true,
-  store: MongoStore.create({
-    mongoUrl: process.env.MONGO_URI,
-    ttl: 14 * 24 * 60 * 60
-  }),
-  cookie: { secure: process.env.NODE_ENV === "production" }
-}));
+// --- Session ---
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "rahasiaSuperAman",
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URI,
+      ttl: 14 * 24 * 60 * 60, // 14 hari
+    }),
+    cookie: {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    },
+  })
+);
 
-// 4. EJS Views
+// --- EJS ---
 app.set("view engine", "ejs");
-app.set("views", path.join(rootDir, "views")); 
+app.set("views", path.join(__dirname, "../views"));
 
-// 5. Routes
-app.use("/", projectRoutes); 
+// --- Routes ---
+app.use("/", projectRoutes);
 
-// 6. Health Check
-app.get("/api/health", (req, res) => {
-  res.status(200).json({ message: "Server is alive!" });
-});
-
-// 7. Koneksi DB
-connectDB().catch(err => console.error("Database connection failed:", err));
-
-// 8. Export Handler untuk Vercel
 module.exports = app;

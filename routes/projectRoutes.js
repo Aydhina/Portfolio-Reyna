@@ -34,13 +34,11 @@ router.get("/home", projectController.getAllProjects);
 router.get("/pkl/astra", (req, res) => {
   res.render("pkl/astra", { title: "PKL - ASTRA", session: req.session });
 });
-
 router.get("/pkl/toko_online", (req, res) => {
   res.render("pkl/toko_online", { title: "PKL - Toko Online", session: req.session });
 });
-
-router.get("/pkl/inventori_barang", (req, res) => {
-  res.render("pkl/inventori_barang", { title: "PKL - Inventory Barang", session: req.session });
+router.get("/pkl/inventory_barang", (req, res) => {
+  res.render("pkl/inventory_barang", { title: "PKL - Inventory Barang", session: req.session });
 });
 
 // --- CRUD PROJECT (login required) ---
@@ -49,28 +47,42 @@ router.post("/project/edit/:id", auth, upload.single("thumbnail"), projectContro
 router.post("/project/delete/:id", auth, projectController.deleteProject);
 
 // --- AUTH ---
+// Tampilkan halaman login
+router.get("/login", (req, res) => {
+  res.render("login", { error: null });
+});
+
+// Proses login
 router.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
     const user = await User.findOne({ username });
 
-    if (!user) return res.send("Username salah");
+    if (!user) {
+      return res.render("login", { error: "Username salah" });
+    }
 
     const match = await bcrypt.compare(password, user.password);
-    if (!match) return res.send("Password salah");
+    if (!match) {
+      return res.render("login", { error: "Password salah" });
+    }
 
+    // ✅ Simpan session login
     req.session.isLogin = true;
-    // 🔥 pastikan session disimpan sebelum redirect
+
+    // Pastikan session tersimpan sebelum redirect
     req.session.save((err) => {
-      if (err) console.error("Session save error:", err);
-      res.redirect("/");
+      if (err) console.error("❌ Session save error:", err);
+      console.log("✅ Login berhasil untuk user:", username);
+      res.redirect("/"); // kembali ke halaman utama
     });
   } catch (err) {
     console.error("Login error:", err);
-    res.status(500).send("Terjadi kesalahan saat login.");
+    res.status(500).render("login", { error: "Terjadi kesalahan server" });
   }
 });
 
+// Logout
 router.get("/logout", (req, res) => {
   req.session.destroy(() => {
     res.redirect("/");
