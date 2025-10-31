@@ -1,33 +1,42 @@
 const express = require("express");
 const router = express.Router();
 const projectController = require("../controllers/projectController");
-const multer = require("multer");
-const path = require("path");
 const auth = require("../middleware/auth");
 const bcrypt = require("bcrypt");
 const User = require("../models/userModel");
 
-// Konfigurasi multer untuk upload thumbnail
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "public/img/uploads/");
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
-  }
+const multer = require("multer");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("cloudinary").v2;
+
+// Konfigurasi Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
+
+// Storage Cloudinary
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "portfolio_reyna",
+    allowed_formats: ["jpg", "png", "jpeg"]
+  },
+});
+
 const upload = multer({ storage });
 
 // Routes utama
-router.get("/", projectController.getAllProjects); // default route
+router.get("/", projectController.getAllProjects);
 router.get("/home", projectController.getAllProjects);
 
 // CRUD project
 router.post("/project/add", auth, upload.single("thumbnail"), projectController.createProject);
-// router.get("/project/edit/:id", auth, projectController.formEdit);
 router.post("/project/edit/:id", auth, upload.single("thumbnail"), projectController.updateProject);
 router.post("/project/delete/:id", auth, projectController.deleteProject);
 
+// Auth
 router.get("/login", (req, res) => {
   res.render("login");
 });
@@ -42,14 +51,13 @@ router.post("/login", async (req, res) => {
   if (!match) return res.send("Password salah");
 
   req.session.isLogin = true;
-  res.redirect("/home");
+  res.redirect("/api/home"); // redirect sesuai Vercel prefix
 });
 
 router.get("/logout", (req, res) => {
   req.session.destroy(() => {
-    res.redirect("/home");
+    res.redirect("/api/home");
   });
 });
-
 
 module.exports = router;

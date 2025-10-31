@@ -25,7 +25,7 @@ app.use(session({
     mongoUrl: process.env.MONGO_URI,
     ttl: 14 * 24 * 60 * 60
   }),
-  cookie: { secure: false }
+  cookie: { secure: process.env.NODE_ENV === "production" }
 }));
 
 // EJS
@@ -35,14 +35,14 @@ app.set("views", path.join(__dirname, "../views"));
 // routes
 app.use("/", projectRoutes);
 
-// test route
+// health check
 app.get("/api/health", (req, res) => {
   res.status(200).json({ message: "Server is alive!" });
 });
 
 // koneksi DB
-let isConnected = false;
-connectDB().then(() => { isConnected = true; }).catch(err => console.log(err));
+connectDB().catch(err => console.error(err));
 
+// export handler untuk Vercel
 module.exports = app;
-module.exports.handler = serverless(app); // wajib untuk Vercel
+module.exports.handler = serverless(app);

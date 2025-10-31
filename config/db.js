@@ -1,16 +1,17 @@
 const mongoose = require("mongoose");
-require("dotenv").config();
 
 const connectDB = async () => {
+  if (mongoose.connection.readyState >= 1) return; // koneksi sudah ada
+
   try {
     await mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    console.log("MongoDB Connected ✅");
+    console.log("MongoDB connected");
   } catch (err) {
-    console.error("MongoDB Connection Failed ❌", err.message);
-    process.exit(1);
+    console.error("MongoDB connection error:", err);
+    throw err;
   }
 };
 
