@@ -36,6 +36,10 @@ app.use(session({
   cookie: { secure: false }
 }));
 
+app.get('/', (req, res) => {
+    // Memberikan respons OK secara instan
+    res.status(200).send('Server is alive!'); 
+});
 
 // routes
 app.use("/", projectRoutes);
