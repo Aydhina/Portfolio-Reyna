@@ -6,6 +6,7 @@ const connectDB = require("./config/db");
 const projectRoutes = require("./routes/projectRoutes");
 
 dotenv.config();
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -41,5 +42,5 @@ app.use("/", projectRoutes);
 
 // start
 app.listen(PORT, () => {
-  console.log(`Server berjalan di port ${PORT}`);
+  console.log(`Server berjalan di port ${PORT}`);
 });
