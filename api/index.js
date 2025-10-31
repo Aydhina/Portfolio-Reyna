@@ -3,7 +3,6 @@ const path = require("path");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const dotenv = require("dotenv");
-const serverless = require("serverless-http");
 const connectDB = require("../config/db");
 const projectRoutes = require("../routes/projectRoutes");
 
@@ -45,4 +44,3 @@ connectDB().catch(err => console.error(err));
 
 // export handler untuk Vercel
 module.exports = app;
-module.exports.handler = serverless(app);
