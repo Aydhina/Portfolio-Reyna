@@ -40,7 +40,8 @@ app.use(session({
 // routes
 app.use("/", projectRoutes);
 
-// start
-app.listen(PORT, () => {
-  console.log(`Server berjalan di port ${PORT}`);
+const HOST = '0.0.0.0'; 
+
+app.listen(PORT, HOST, () => {
+  console.log(`Server berjalan di host ${HOST} dan port ${PORT}`);
 });
