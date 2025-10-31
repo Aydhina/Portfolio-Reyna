@@ -22,17 +22,24 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
 // ✅ Session middleware
+const MongoStore = require("connect-mongo");
+
 app.use(session({
-  secret: "reyna-portfolio-secret",
+  secret: process.env.SESSION_SECRET, // dari .env
   resave: false,
   saveUninitialized: true,
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGO_URI,
+    ttl: 14 * 24 * 60 * 60 // session 14 hari
+  }),
   cookie: { secure: false }
 }));
+
 
 // routes
 app.use("/", projectRoutes);
 
 // start
 app.listen(PORT, () => {
-  console.log(`Server berjalan di http://localhost:${PORT}`);
+  console.log(`Server berjalan di port ${PORT}`);
 });
