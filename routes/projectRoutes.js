@@ -39,8 +39,8 @@ router.get("/pkl/toko_online", (req, res) => {
   res.render("pkl/toko_online", { title: "PKL - Toko Online", session: req.session });
 });
 
-router.get("/pkl/inventory_barang", (req, res) => {
-  res.render("pkl/inventory_barang", { title: "PKL - Inventory Barang", session: req.session });
+router.get("/pkl/inventori_barang", (req, res) => {
+  res.render("pkl/inventori_barang", { title: "PKL - Inventory Barang", session: req.session });
 });
 
 // --- CRUD PROJECT (login required) ---
@@ -49,21 +49,26 @@ router.post("/project/edit/:id", auth, upload.single("thumbnail"), projectContro
 router.post("/project/delete/:id", auth, projectController.deleteProject);
 
 // --- AUTH ---
-router.get("/login", (req, res) => {
-  res.render("login");
-});
-
 router.post("/login", async (req, res) => {
-  const { username, password } = req.body;
-  const user = await User.findOne({ username });
+  try {
+    const { username, password } = req.body;
+    const user = await User.findOne({ username });
 
-  if (!user) return res.send("Username salah");
+    if (!user) return res.send("Username salah");
 
-  const match = await bcrypt.compare(password, user.password);
-  if (!match) return res.send("Password salah");
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) return res.send("Password salah");
 
-  req.session.isLogin = true;
-  res.redirect("/"); // ✅ bukan /api/home agar aman di Vercel
+    req.session.isLogin = true;
+    // 🔥 pastikan session disimpan sebelum redirect
+    req.session.save((err) => {
+      if (err) console.error("Session save error:", err);
+      res.redirect("/");
+    });
+  } catch (err) {
+    console.error("Login error:", err);
+    res.status(500).send("Terjadi kesalahan saat login.");
+  }
 });
 
 router.get("/logout", (req, res) => {

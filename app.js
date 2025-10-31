@@ -1,51 +1,57 @@
 const express = require("express");
 const path = require("path");
 const dotenv = require("dotenv");
-const session = require("express-session"); 
+const session = require("express-session");
 const connectDB = require("./config/db");
 const projectRoutes = require("./routes/projectRoutes");
+const MongoStore = require("connect-mongo");
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// koneksi ke DB
+// --- Koneksi DB
 connectDB();
 
-// EJS
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
-
-// middleware
+// --- Middleware dasar
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-// ✅ Session middleware
-const MongoStore = require("connect-mongo");
+// --- Trust proxy (PENTING untuk session di Vercel)
+app.set("trust proxy", 1);
 
-app.use(session({
-  secret: process.env.SESSION_SECRET, // dari .env
-  resave: false,
-  saveUninitialized: true,
-  store: MongoStore.create({
-    mongoUrl: process.env.MONGO_URI,
-    ttl: 14 * 24 * 60 * 60 // session 14 hari
-  }),
-  cookie: { secure: false }
-}));
+// --- Session middleware
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URI,
+      ttl: 14 * 24 * 60 * 60,
+    }),
+    cookie: {
+      secure: process.env.NODE_ENV === "production", // true saat di vercel
+      sameSite: "lax",
+    },
+  })
+);
 
-app.get('/', (req, res) => {
-    // Memberikan respons OK secara instan
-    res.status(200).send('Server is alive!'); 
-});
+// --- View Engine
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
-// routes
+// --- Routes
 app.use("/", projectRoutes);
 
-const HOST = '0.0.0.0'; 
+// --- Health check route
+app.get("/api/health", (req, res) => {
+  res.status(200).json({ status: "ok" });
+});
 
+const HOST = "0.0.0.0";
 app.listen(PORT, HOST, () => {
-  console.log(`Server berjalan di host ${HOST} dan port ${PORT}`);
+  console.log(`✅ Server berjalan di ${HOST}:${PORT}`);
 });
