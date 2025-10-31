@@ -24,7 +24,7 @@ router.get("/home", projectController.getAllProjects);
 
 // CRUD project
 router.post("/project/add", auth, upload.single("thumbnail"), projectController.createProject);
-router.get("/project/edit/:id", auth, projectController.formEdit);
+// router.get("/project/edit/:id", auth, projectController.formEdit);
 router.post("/project/edit/:id", auth, upload.single("thumbnail"), projectController.updateProject);
 router.post("/project/delete/:id", auth, projectController.deleteProject);
 

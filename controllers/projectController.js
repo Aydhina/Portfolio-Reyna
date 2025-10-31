@@ -34,15 +34,15 @@ exports.createProject = async (req, res) => {
 };
 
 // Form edit project
-exports.formEdit = async (req, res) => {
-  try {
-    const project = await Project.findById(req.params.id);
-    if (!project) return res.status(404).send("Project tidak ditemukan");
-    res.render("project_edit", { title: "Edit Project", project });
-  } catch (err) {
-    res.status(500).send("Error form edit: " + err.message);
-  }
-};
+// exports.formEdit = async (req, res) => {
+//   try {
+//     const project = await Project.findById(req.params.id);
+//     if (!project) return res.status(404).send("Project tidak ditemukan");
+//     res.render("project_edit", { title: "Edit Project", project });
+//   } catch (err) {
+//     res.status(500).send("Error form edit: " + err.message);
+//   }
+// };
 
 // Update project
 exports.updateProject = async (req, res) => {

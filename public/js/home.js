@@ -92,12 +92,15 @@ function openEditModal(id, title, description, github, demo, extra) {
   const modal = document.getElementById("projectModal");
   const form = document.getElementById("projectForm");
   document.getElementById("modalTitle").textContent = "Edit Project";
-  form.action = `/project/update/${id}`;
+
+  form.action = `/project/edit/${id}`;
+
   form.querySelector('input[name="title"]').value = title || "";
   form.querySelector('textarea[name="description"]').value = description || "";
   form.querySelector('input[name="github_url"]').value = github || "";
   form.querySelector('input[name="demo_url"]').value = demo || "";
   form.querySelector('input[name="extra_url"]').value = extra || "";
+
   showModal(modal);
 }
 
@@ -113,7 +116,7 @@ function closeModal() {
 // =============================
 function deleteProject(id) {
   if (confirm("Apakah yakin ingin menghapus project ini?")) {
-    fetch(`/project/delete/${id}`, { method: "GET" })
+    fetch(`/project/delete/${id}`, { method: "POST" })
       .then((res) => {
         if (res.ok) {
           alert("✅ Project berhasil dihapus!");
