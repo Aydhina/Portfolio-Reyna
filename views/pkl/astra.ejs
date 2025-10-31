@@ -1,451 +1,546 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Projek PKL — ASTRA (Futuristic Elegan Pro)</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
-  <style>
-    /* ---------- BASIC ---------- */
-    :root{
-      --bg:#070707;
-      --card: rgba(18,18,18,0.6);
-      --glass-border: rgba(255,80,80,0.12);
-      --accent:#990b0b; /* maroon */
-      --accent-soft: rgba(153,11,11,0.12);
-      --muted:#bdbdbd;
-      --glass-blur: 12px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;background:var(--bg);color:#f4f4f4;font-family:'Poppins',sans-serif;overflow-x:hidden;scroll-behavior:smooth}
-    a{color:inherit;text-decoration:none}
-    img{max-width:100%;display:block;height:auto}
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>ASTRA</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Merriweather:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/project-pkl.css" />
+  </head>
+  <body>
+    <!-- PARALLAX LAYERS -->
+    <div class="parallax-layer layer-0" aria-hidden="true"></div>
+    <div class="parallax-layer layer-1" aria-hidden="true"></div>
+    <canvas id="particle-canvas" aria-hidden="true"></canvas>
 
-    /* ---------- HERO (DIPERTAHANKAN) ---------- */
-    .hero {
-      background: linear-gradient(135deg, #800000, #000000);
-      padding: 6rem 2rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.08), transparent 70%);
-      animation: shine 6s linear infinite;
-    }
-    @keyframes shine {
-      0% { transform: translateX(-100%) rotate(25deg); }
-      100% { transform: translateX(200%) rotate(25deg); }
-    }
-    .hero h1 {
-      font-family: "Merriweather", serif;
-      font-size: 3.5rem;
-      margin: 0 0 1rem;
-      color: #fff;
-      letter-spacing: 2px;
-    }
-    .hero p {
-      font-size: 1.3rem;
-      max-width: 750px;
-      margin: auto;
-      opacity: 0.95;
-      line-height: 1.9;
-    }
-    .hero span {
-      color: #ffb3b3;
-      font-weight: 700;
-      text-shadow: 0 0 10px rgba(255, 179, 179, 0.6);
-    }
-
-    /* ---------- NAVBAR MINIMAL (atas) ---------- */
-    nav.topbar{
-      position:fixed;top:8px;left:0;right:0;display:flex;justify-content:center;gap:20px;z-index:1200;
-      pointer-events:auto;
-    }
-    nav.topbar a{
-      background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,0.04);
-      color:var(--muted);font-weight:600;font-size:13px;backdrop-filter:blur(8px)
-    }
-    nav.topbar a:hover{color:#fff;box-shadow:0 6px 18px rgba(153,11,11,0.12);border-color:var(--accent-soft)}
-
-    /* ---------- PARALLAX LAYERS ---------- */
-    .parallax-layer {
-      position:fixed;pointer-events:none;inset:0;z-index:-2;will-change:transform;
-    }
-    /* subtle radial glow center */
-    .parallax-layer.layer-0{
-      background: radial-gradient(circle at 20% 20%, rgba(153,11,11,0.06), transparent 20%),
-                  radial-gradient(circle at 80% 80%, rgba(255,50,50,0.03), transparent 25%);
-      mix-blend-mode:screen;opacity:0.9;filter:blur(30px);
-      transform: translateZ(0);
-    }
-    /* faint geometric texture */
-    .parallax-layer.layer-1{
-      background-image: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
-      opacity:0.25;mix-blend-mode:overlay;transform: translateZ(0);
-      filter:contrast(0.9) brightness(0.9);
-    }
-
-    /* particle canvas layer */
-    #particle-canvas{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:0.85}
-
-    /* ---------- MAIN STORY CONTAINER ---------- */
-    main{position:relative;z-index:10;max-width:1100px;margin:3.5rem auto;padding:2rem}
-    .stage{
-      display:grid;grid-template-columns:1fr 420px;gap:36px;align-items:start;
-      margin:2rem 0;padding:28px;border-radius:16px;background:var(--card);
-      border:1px solid var(--glass-border);backdrop-filter:blur(var(--glass-blur));
-      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-      transition:transform .6s cubic-bezier(.2,.9,.2,1),box-shadow .4s;
-      overflow:hidden;
-    }
-    .stage:hover{transform:translateY(-6px);box-shadow:0 18px 60px rgba(153,11,11,0.12)}
-    /* single-column fallback on small screens */
-    @media (max-width:980px){.stage{grid-template-columns:1fr;max-width:92vw;padding:20px}}
-
-    /* ---------- STORY TEXT ---------- */
-    .story-left{padding-right:6px}
-    .kicker{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg, rgba(153,11,11,0.12), rgba(153,11,11,0.06));color:#ffdede;font-weight:700;font-size:13px;margin-bottom:10px}
-    h2.proj-title{margin:0 0 10px;font-family:'Merriweather';font-size:1.6rem;color:#fff;letter-spacing:0.6px}
-    p.lead{color:#e6e6e6;font-size:1rem;line-height:1.9;margin:0 0 12px}
-    ul.features{padding-left:18px;margin:8px 0 0;color:#ddd}
-    ul.features li{margin:8px 0;opacity:0.95}
-
-    /* ---------- SLIDER (kanan) ---------- */
-    .visual-right{position:relative;display:block;height:100%;align-self:stretch}
-    .carousel{
-      position:relative;border-radius:12px;overflow:hidden;height:100%;
-      min-height:300px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
-      box-shadow:inset 0 0 30px rgba(0,0,0,0.5);
-      border:1px solid rgba(255,255,255,0.03)
-    }
-    .carousel .slide{
-      position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.04);
-      transition:opacity 1s ease, transform 1.2s cubic-bezier(.2,.9,.2,1);
-      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-    }
-    .carousel .slide.show{opacity:1;transform:scale(1)}
-    /* subtle neon edge */
-    .carousel::after{
-      content:"";position:absolute;inset:0;border-radius:12px;padding:1px;
-      background:linear-gradient(90deg, rgba(153,11,11,0.12), rgba(255,80,80,0.06));
-      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-      mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-      pointer-events:none;
-    }
-
-    /* controls (tiny) */
-    .dots{display:flex;gap:8px;justify-content:center;padding:12px 0}
-    .dot{width:10px;height:10px;border-radius:50%;background:#666;box-shadow:0 2px 8px rgba(0,0,0,0.6);cursor:pointer}
-    .dot.active{background:var(--accent);box-shadow:0 0 14px rgba(153,11,11,0.28)}
-
-    /* ---------- FOOTER ---------- */
-    footer{max-width:1100px;margin:4rem auto 6rem;color:var(--muted);text-align:center;font-size:0.95rem;padding:1rem}
-
-    /* ---------- APPEAR ANIM ---------- */
-    .reveal{opacity:0;transform:translateY(28px);transition:all .9s cubic-bezier(.2,.9,.2,1)}
-    .reveal.visible{opacity:1;transform:none}
-
-    /* ---------- RESPONSIVE ---------- */
-    @media (max-width:600px){
-      .kicker{font-size:12px}
-      h2.proj-title{font-size:1.25rem}
-    }
-
-    /* ---------- STAGE INTRO (slightly different visual style) ---------- */
-.stage-intro {
-  background: linear-gradient(145deg, rgba(153, 11, 11, 0.08), rgba(255, 255, 255, 0.02));
-  border: 1px solid rgba(255, 100, 100, 0.1);
-  box-shadow: 0 8px 30px rgba(153, 11, 11, 0.08);
-  text-align: left;
-}
-
-.stage-intro:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 14px 40px rgba(153, 11, 11, 0.12);
-}
-
-.stage-intro .kicker {
-  background: linear-gradient(90deg, rgba(255, 120, 120, 0.18), rgba(153, 11, 11, 0.12));
-  color: #ffeaea;
-}
-
-.stage-intro .proj-title {
-  font-size: 1.8rem;
-  letter-spacing: 0.8px;
-  background: linear-gradient(90deg, #fff, #ffcccc);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.stage-intro .lead {
-  color: #f0f0f0;
-  font-size: 1.05rem;
-  line-height: 1.9;
-}
-
-  </style>
-</head>
-<body>
-  <!-- PARALLAX LAYERS -->
-  <div class="parallax-layer layer-0" aria-hidden="true"></div>
-  <div class="parallax-layer layer-1" aria-hidden="true"></div>
-  <canvas id="particle-canvas" aria-hidden="true"></canvas>
-
-  <!-- NAV (minimal) -->
-  <nav class="topbar" aria-label="quick-links">
-    <a href="#overview">Overview</a>
-    <a href="#story">Storyline</a>
-    <a href="#features">Fitur</a>
-    <a href="#hasil">Hasil</a>
-  </nav>
-
-  <!-- HERO (tetap persis) -->
-  <header class="hero" role="banner">
-    <div class="hero-content">
-      <h1>ASTRA</h1>
-      <p>Dokumentasi & Penjelasan mengenai projek aplikasi web 
-        <span>ASTRA Selapan</span>.</p>
-    </div>
-  </header>
-
-  <!-- MAIN -->
-  <main>
-
-    <!-- STAGE INTRO BOX -->
-     <section class="stage stage-intro reveal">
-  <div class="story-left" style="grid-column:1 / -1">
-    <span class="kicker">Pendahuluan</span>
-    <h2 class="proj-title">apa itu ASTRA?</h2>
-    <p class="lead">
-      <strong>ASTRA</strong> Astra adalah sebuah aplikasi sistem tata tertib yang dikembangkan 
-      untuk Asta Arkananta. Aplikasi ini berfungsi sebagai alat pengelolaan poin pelanggaran 
-      dan ketidakhadiran siswa agar proses administrasi kedisiplinan menjadi lebih efisien dan 
-      terstruktur. Dengan menggunakan teknologi berbasis PHP dan framework CodeIgniter, Astra 
-      dirancang agar mudah digunakan serta memiliki performa yang optimal dalam pengolahan data siswa.
-    </p>
-    
-    <p class="lead">
-      Selama masa Praktik Kerja Lapangan (PKL) di <strong>PT Datasoft Solusi Indonesia</strong>, saya berfokus 
-      sepenuhnya pada pengembangan proyek Astra ini sebagai satu-satunya proyek utama yang saya 
-      kerjakan. Melalui proyek ini, saya tidak hanya berkontribusi dalam pengembangan sistem, tetapi 
-      juga memperoleh pengalaman langsung dalam penerapan teknologi web dan manajemen proyek berbasis industri.
-    </p>
-  </div>
-</section>
-
-
-    <!-- Stage 1: Intro + visual -->
-    <section id="overview" class="stage reveal">
-      
-      <div class="story-left">
-        <span class="kicker">Langkah Awal</span>
-        <h2 class="proj-title">Tahap Perancangan Konsep Aplikasi</h2>
-        <p class="lead">
-          Langkah pertama dalam pengembangan aplikasi Astra adalah menentukan konsep 
-          dasar sistem. Proses ini dimulai dengan pembuatan flowchart menggunakan Draw.io 
-          untuk menggambarkan alur kerja aplikasi secara visual. Selain itu, alur sistem 
-          juga dijelaskan secara tertulis melalui dokumen di Google Docs agar mudah 
-          dipahami oleh seluruh tim. Setelah konsep dan alur sistem selesai disusun, 
-          tahap berikutnya adalah menentukan tampilan antarmuka aplikasi. Pada tahap awal, 
-          kami menggunakan template yang sudah tersedia sebagai dasar desain, kemudian melakukan 
-          beberapa penyesuaian dan modifikasi dengan mengambil inspirasi dari berbagai referensi 
-          desain di Pinterest, sehingga tampilan aplikasi menjadi lebih menarik dan sesuai dengan kebutuhan pengguna.</p>
-        <ul class="features">
-          <li>Dokumentasi: perencanaan di Google Docs & flowchart di Draw.io</li>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-logo">ASTRA</div>
+        <div class="nav-toggle" id="nav-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="#Beranda">Beranda</a></li>
+          <li><a href="#Rancangan">Rancangan</a></li>
+          <li><a href="#Dashboard">Dashboard</a></li>
+          <li><a href="#Data">Data</a></li>
+          <li><a href="#Pelanggaran">Pelanggaran</a></li>
+          <li><a href="#Kehadiran">Kehadiran</a></li>
+          <li><a href="#Validasi">Validasi</a></li>
         </ul>
       </div>
+    </nav>
 
-      <aside class="visual-right" aria-hidden="false">
-        <div class="carousel" id="carousel-1" aria-label="slideshow">
-          <div class="slide show" style="background-image:url('/img/pkl/juli1.png');"></div>
-          <div class="slide" style="background-image:url('/img/agust1.png');"></div>
-          <div class="slide" style="background-image:url('/img/september3.png');"></div>
+    <!-- HERO (tetap persis) -->
+    <header class="hero" role="banner">
+      <div class="hero-content">
+        <h1>ASTRA</h1>
+        <p>
+          Dokumentasi & Penjelasan mengenai projek aplikasi web
+          <span>ASTRA Selapan</span>.
+        </p>
+      </div>
+    </header>
+
+    <!-- MAIN -->
+    <main>
+      <!-- STAGE INTRO BOX -->
+      <section id="Beranda" class="stage stage-intro reveal">
+        <div class="story-left" style="grid-column: 1 / -1">
+          <span id="overview" class="kicker">Awal</span>
+          <h2 class="proj-title">apa itu ASTRA?</h2>
+          <p class="lead">
+            <strong>ASTRA</strong> Astra adalah sebuah aplikasi sistem tata
+            tertib yang dikembangkan untuk Asta Arkananta. Aplikasi ini
+            berfungsi sebagai alat pengelolaan poin pelanggaran dan
+            ketidakhadiran siswa agar proses administrasi kedisiplinan menjadi
+            lebih efisien dan terstruktur. Dengan menggunakan teknologi berbasis
+            PHP dan framework CodeIgniter, Astra dirancang agar mudah digunakan
+            serta memiliki performa yang optimal dalam pengolahan data siswa.
+          </p>
+
+          <p class="lead">
+            Selama masa Praktik Kerja Lapangan (PKL) di
+            <strong>PT Datasoft Solusi Indonesia</strong>, saya berfokus
+            sepenuhnya pada pengembangan proyek Astra ini sebagai satu-satunya
+            proyek utama yang saya kerjakan. Melalui proyek ini, saya tidak
+            hanya berkontribusi dalam pengembangan sistem, tetapi juga
+            memperoleh pengalaman langsung dalam penerapan teknologi web dan
+            manajemen proyek berbasis industri.
+          </p>
         </div>
-        <div class="dots" data-carousel="carousel-1"></div>
-      </aside>
-    </section>
+      </section>
 
-    <!-- Stage 2: Process -->
-    <section id="story" class="stage reveal">
-      <div class="story-left">
-        <span class="kicker">Proses</span>
-        <h2 class="proj-title">Dari Rencana ke Implementasi</h2>
-        <p class="lead">Perencanaan sistem dilakukan secara bertahap: requirement → dokumen → flowchart → implementasi. Pendekatan ini meminimalkan rewrites dan mempercepat deliverable.</p>
-        <ul class="features">
-          <li>Struktur MVC rapi & modular</li>
-          <li>AJAX untuk interaksi tanpa reload</li>
-          <li>Testing manual & perbaikan UX sebelum final</li>
-        </ul>
+      <!-- ---------- STAGE 1 ---------- -->
+      <div id="Rancangan" class="stage-wrapper reveal">
+        <!-- Kolom kiri -->
+        <section class="stage">
+          <div class="story-left">
+            <span class="kicker">Rancang</span>
+            <h2 class="proj-title">Tahap Perancangan Konsep Aplikasi</h2>
+            <div
+              class="text-collapse"
+              style="max-height: 150px; overflow: hidden; transition: 0.5s"
+            >
+              <p class="lead">
+                Langkah pertama dalam pengembangan aplikasi Astra adalah
+                menentukan konsep dasar sistem. Proses ini dimulai dengan
+                pembuatan flowchart menggunakan Draw.io untuk menggambarkan alur
+                kerja aplikasi secara visual. Selain itu, alur sistem juga
+                dijelaskan secara tertulis melalui dokumen di Google Docs agar
+                mudah dipahami oleh seluruh tim. Setelah konsep dan alur sistem
+                selesai disusun, tahap berikutnya adalah menentukan tampilan
+                antarmuka aplikasi. Pada tahap awal, kami menggunakan template
+                yang sudah tersedia sebagai dasar desain, kemudian melakukan
+                beberapa penyesuaian dan modifikasi dengan mengambil inspirasi
+                dari berbagai referensi desain di Pinterest, sehingga tampilan
+                aplikasi menjadi lebih menarik dan sesuai dengan kebutuhan
+                pengguna.
+              </p>
+            </div>
+            <button
+              class="read-more-btn"
+              style="
+                background: none;
+                border: none;
+                color: var(--accent);
+                cursor: pointer;
+                font-weight: 600;
+              "
+            >
+              Baca Selengkapnya..
+            </button>
+            <ul class="features">
+              <li>
+                Dokumentasi: perencanaan di Google Docs & flowchart di Draw.io
+              </li>
+            </ul>
+          </div>
+        </section>
+        <!-- Kolom kanan = carousel -->
+        <aside class="visual-right">
+          <div class="carousel" id="carousel-1">
+            <div
+              class="slide show"
+              style="background-image: url('/img/pkl/gdrive-materi.png')"
+            ></div>
+            <div
+              class="slide"
+              style="background-image: url('/img/pkl/materiphp-materi.png')"
+            ></div>
+            <div
+              class="slide"
+              style="background-image: url('/img/pkl/gdocs-astra.png')"
+            ></div>
+            <div
+              class="slide"
+              style="background-image: url('/img/pkl/drawio-astra.png')"
+            ></div>
+          </div>
+          <div class="dots" data-carousel="carousel-1"></div>
+        </aside>
       </div>
 
-      <aside class="visual-right" aria-hidden="false">
-        <div class="carousel" id="carousel-2">
-          <div class="slide show" style="background-image:url('/img/september4.png');"></div>
-          <div class="slide" style="background-image:url('/img/september7.png');"></div>
-          <div class="slide" style="background-image:url('/img/september10.png');"></div>
-        </div>
-        <div class="dots" data-carousel="carousel-2"></div>
-      </aside>
-    </section>
-
-    <!-- Stage 3: Outcomes -->
-    <section id="hasil" class="stage reveal">
-      <div class="story-left">
-        <span class="kicker">Hasil</span>
-        <h2 class="proj-title">Hasil & Pembelajaran</h2>
-        <p class="lead">ASTRA menghadirkan pencatatan yang lebih cepat, fitur autosuggest untuk input siswa, serta panel dashboard sederhana untuk analisa poin pelanggaran.</p>
-        <ul class="features">
-          <li>Peningkatan kecepatan input & pengurangan kesalahan manual</li>
-          <li>Dokumentasi siap presentasi untuk pihak sekolah</li>
-          <li>Pengalaman belajar mendalam untuk teknik backend dan UX</li>
-        </ul>
+      <!-- ---------- STAGE 2 ---------- -->
+      <div id="Dashboard" class="stage-wrapper reveal">
+        <section class="stage">
+          <div class="story-left">
+            <span class="kicker">Pantau</span>
+            <h2 class="proj-title">Dashboard</h2>
+            <div
+              class="text-collapse"
+              style="max-height: 150px; overflow: hidden; transition: 0.5s"
+            >
+              <p class="lead">
+                Page Dashboard berfungsi sebagai halaman utama yang menampilkan
+                rangkuman informasi penting dalam sistem tata tertib sekolah.
+                Halaman ini digunakan oleh guru atau admin untuk memantau data
+                statistik seperti jumlah pelanggaran, absensi siswa, hingga
+                laporan kegiatan dengan tampilan interaktif berbasis Bootstrap.
+                Dari sisi teknis, controller Dashboard pada framework
+                CodeIgniter berperan sebagai penghubung antara view dan model,
+                di mana model seperti M_revisi, M_pelanggaran, dan M_kehadiran
+                digunakan untuk mengambil data dari database, seperti jumlah
+                pelanggaran bulan lalu, total siswa yang menjalani treatment,
+                serta daftar ranking siswa dengan poin tertinggi. Seluruh data
+                tersebut kemudian dikirim ke view dashboard.php untuk
+                ditampilkan dalam bentuk card statistik dan tabel dinamis yang
+                responsif. Selain itu, fungsi tambahan upload_bukti() juga
+                diterapkan menggunakan library upload bawaan CodeIgniter untuk
+                mengelola file bukti pelanggaran siswa dalam format PDF, JPG,
+                atau PNG secara otomatis.
+              </p>
+            </div>
+            <button
+              class="read-more-btn"
+              style="
+                background: none;
+                border: none;
+                color: var(--accent);
+                cursor: pointer;
+                font-weight: 600;
+              "
+            >
+              Baca Selengkapnya..
+            </button>
+            <ul class="features">
+              <li>Dokumentasi: Tampilan page Dashboard</li>
+            </ul>
+          </div>
+        </section>
+        <aside class="visual-right">
+          <div class="carousel" id="carousel-2">
+            <div
+              class="slide show"
+              style="background-image: url('/img/pkl/dashboard1-astra.png')"
+            ></div>
+            <div
+              class="slide"
+              style="background-image: url('/img/pkl/dashboard2-astra.png')"
+            ></div>
+          </div>
+          <div class="dots" data-carousel="carousel-2"></div>
+        </aside>
       </div>
 
-      <aside class="visual-right" aria-hidden="false">
-        <div class="carousel" id="carousel-3">
-          <div class="slide show" style="background-image:url('/img/oktober1.jpg');"></div>
-          <div class="slide" style="background-image:url('/img/oktober2.png');"></div>
-          <div class="slide" style="background-image:url('/img/oktober3.jpg');"></div>
-        </div>
-        <div class="dots" data-carousel="carousel-3"></div>
-      </aside>
-    </section>
-  </main>
+      <!-- ---------- STAGE 3 ---------- -->
+      <div id="Data" class="stage-wrapper reveal">
+        <section class="stage">
+          <div class="story-left">
+            <span class="kicker">Bangun</span>
+            <h2 class="proj-title">Pasal-pasal & Inputan Data Siswa</h2>
+            <div
+              class="text-collapse"
+              style="max-height: 150px; overflow: hidden; transition: 0.5s"
+            >
+              <p>
+                Page Pasal-Pasal berisi kumpulan peraturan sekolah yang
+                dituangkan dalam bentuk pasal mulai dari Pasal 16 hingga Pasal
+                23, yang menjadi dasar tata tertib dan pedoman perilaku siswa di
+                lingkungan sekolah. Setiap pasal berisi ketentuan yang mengatur
+                sikap, kewajiban, serta larangan bagi siswa agar tercipta
+                suasana belajar yang tertib dan disiplin. Salah satu bagian yang
+                paling penting terdapat pada Pasal 20, yang secara khusus
+                menjelaskan tentang pemberian poin pelanggaran berdasarkan
+                kategori ringan, sedang, hingga berat — poin ini nantinya akan
+                digunakan dalam sistem untuk menentukan tindak lanjut terhadap
+                siswa, seperti peringatan, pembinaan, atau tindakan disiplin
+                lainnya.
+              </p>
+              <p>
+                Page Data Siswa adalah halaman untuk mengelola seluruh informasi
+                terkait siswa, seperti NISN, NIPD, nama, kelas, jenis kelamin,
+                wali kelas, dan status. Pada sisi kode, page ini menggunakan
+                kombinasi controller Data_siswa dan model m_siswa untuk
+                menangani proses CRUD (Create, Read, Update, Delete) serta fitur
+                tambahan seperti upload foto dan import data dari file Excel
+                menggunakan PhpSpreadsheet. AJAX digunakan agar interaksi
+                seperti penambahan atau pencarian data dapat dilakukan tanpa
+                perlu reload halaman. Dengan desain Bootstrap dan struktur tabel
+                responsif, page ini memudahkan admin dalam memantau dan
+                mengelola data siswa secara real time, sekaligus menjaga
+                pengalaman pengguna agar tetap cepat dan efisien.
+              </p>
+            </div>
+            <button
+              class="read-more-btn"
+              style="
+                background: none;
+                border: none;
+                color: var(--accent);
+                cursor: pointer;
+                font-weight: 600;
+              "
+            >
+              Baca Selengkapnya..
+            </button>
+            <ul class="features">
+              <li>
+                Dokumentasi: Tampilan pasal-pasal dan form input data siswa.
+              </li>
+            </ul>
+          </div>
+        </section>
+        <aside class="visual-right">
+          <div class="carousel" id="carousel-3">
+            <div
+              class="slide show"
+              style="background-image: url('/img/pkl/pasal1-astra.png')"
+            ></div>
+            <div
+              class="slide"
+              style="background-image: url('/img/pkl/pasal2-astra.png')"
+            ></div>
+            <div
+              class="slide"
+              style="background-image: url('/img/pkl/datasiswa1-astra.png')"
+            ></div>
+            <div
+              class="slide"
+              style="background-image: url('/img/pkl/datasiswa2-astra.png')"
+            ></div>
+          </div>
+          <div class="dots" data-carousel="carousel-3"></div>
+        </aside>
+      </div>
 
-  <footer>
-    © 2025 Reyna Aydhina Maritza — ASTRA Project (PKL Datasoft Solusi Indonesia)
-  </footer>
+      <!-- ---------- STAGE 4 ---------- -->
+      <div id="Pelanggaran" class="stage-wrapper reveal">
+        <section class="stage">
+          <div class="story-left">
+            <span class="kicker">Catat</span>
+            <h2 class="proj-title">Input Pelanggaran</h2>
+            <div
+              class="text-collapse"
+              style="max-height: 150px; overflow: hidden; transition: 0.5s"
+            >
+              <p class="lead">
+                Page Pelanggaran berfungsi sebagai halaman pengelolaan data
+                pelanggaran siswa yang mencakup pencatatan, pengeditan,
+                pencarian, serta pembuatan laporan pelanggaran secara otomatis.
+                Halaman ini menampilkan daftar pelanggaran dalam bentuk tabel
+                interaktif yang diambil dari database melalui fungsi ambilData()
+                dengan teknologi AJAX, sehingga data dapat diperbarui secara
+                dinamis tanpa perlu memuat ulang halaman. Pengguna dapat
+                menambahkan data baru lewat form input yang muncul secara
+                pop-up, di mana field seperti nama siswa, NISN, dan kelas terisi
+                otomatis menggunakan data dari tabel siswa melalui JavaScript
+                dan datalist. Kode pada bagian controller Pelanggaran di
+                framework CodeIgniter menangani proses CRUD — seperti fungsi
+                tambahdata(), ubahdata(), dan ambilId() — yang berkomunikasi
+                langsung dengan model M_pelanggaran untuk menyimpan,
+                memperbarui, dan mengambil data dari tabel pelanggaran. Selain
+                itu, fitur autocomplete memudahkan pencarian jenis pelanggaran
+                dari tabel jenis_pelanggaran, dan pengguna juga bisa mengekspor
+                data menjadi PDF atau Excel menggunakan Dompdf dan
+                PhpSpreadsheet. Secara keseluruhan, page ini dirancang agar guru
+                atau admin dapat dengan mudah memantau dan memvalidasi poin
+                pelanggaran siswa, termasuk melakukan pengurangan poin
+                berdasarkan persetujuan guru BK.
+              </p>
+            </div>
+            <button
+              class="read-more-btn"
+              style="
+                background: none;
+                border: none;
+                color: var(--accent);
+                cursor: pointer;
+                font-weight: 600;
+              "
+            >
+              Baca Selengkapnya..
+            </button>
 
-  <!-- ---------- SCRIPTS: parallax, particles, carousel, reveal ---------- -->
-  <script>
-    /* ---------- PARALLAX MOTION for layers ---------- */
-    (function(){
-      const l0 = document.querySelector('.parallax-layer.layer-0');
-      const l1 = document.querySelector('.parallax-layer.layer-1');
-      window.addEventListener('scroll', () => {
-        const s = window.scrollY;
-        // subtle offsets
-        l0.style.transform = `translateY(${s * 0.12}px)`;
-        l1.style.transform = `translateY(${s * 0.06}px)`;
-      }, {passive:true});
-    })();
+            <ul class="features">
+              <li>Dokumentasi: Tampilan page Pelanggaran siswa.</li>
+            </ul>
+          </div>
+        </section>
+        <aside class="visual-right">
+          <div class="carousel" id="carousel-4">
+            <div
+              class="slide show"
+              style="background-image: url('/img/pkl/pelanggaran-astra.png')"
+            ></div>
+            <div
+              class="slide"
+              style="
+                background-image: url('/img/pkl/inputpelanggaran-astra.png');
+              "
+            ></div>
+            <div
+              class="slide"
+              style="background-image: url('/img/pkl/pdfpelanggaran-astra.png')"
+            ></div>
+            <div
+              class="slide"
+              style="
+                background-image: url('/img/pkl/excelpelanggaran-astra.png');
+              "
+            ></div>
+            <div
+              class="slide"
+              style="
+                background-image: url('/img/pkl/siswapdfpelanggaran-astra.png');
+              "
+            ></div>
+          </div>
+          <div class="dots" data-carousel="carousel-4"></div>
+        </aside>
+      </div>
 
-    /* ---------- PARTICLE CANVAS (lightweight) ---------- */
-    (function(){
-      const canvas = document.getElementById('particle-canvas');
-      const ctx = canvas.getContext('2d');
-      let w=canvas.width=innerWidth, h=canvas.height=innerHeight;
-      window.addEventListener('resize',()=>{ w=canvas.width=innerWidth; h=canvas.height=innerHeight; });
+      <!-- ---------- STAGE 5 ---------- -->
+      <div id="Kehadiran" class="stage-wrapper reveal">
+        <section class="stage">
+          <div class="story-left">
+            <span class="kicker">Rekap</span>
+            <h2 class="proj-title">Input Kehadiran</h2>
+            <div
+              class="text-collapse"
+              style="max-height: 150px; overflow: hidden; transition: 0.5s"
+            >
+              <p class="lead">
+                Halaman Pelanggaran/Kehadiran ini berfungsi sebagai pusat
+                pengelolaan data absensi siswa yang juga terintegrasi dengan
+                sistem poin pelanggaran sekolah. Melalui halaman ini, guru atau
+                petugas tata tertib dapat menambahkan, meninjau, serta menghapus
+                data kehadiran siswa berdasarkan tanggal dan keterangan seperti
+                alpa (A), izin, atau sakit, di mana setiap jenis keterangan
+                memiliki bobot poin tertentu yang memengaruhi total poin
+                pelanggaran siswa. Secara teknis, kode pada halaman ini
+                menggunakan arsitektur MVC (Model-View-Controller) pada
+                framework CodeIgniter. Controller Kehadiran berperan sebagai
+                pengatur logika utama — mulai dari memanggil data siswa dari
+                model M_kehadiran, menambahkan data baru ke tabel kehadiran,
+                menampilkan detail, hingga melakukan ekspor laporan dalam format
+                PDF (menggunakan library Dompdf) dan Excel (dengan
+                PhpSpreadsheet). Di sisi view, file HTML menggunakan Bootstrap
+                dan jQuery untuk membuat tampilan interaktif seperti tabel
+                dinamis, pencarian data real-time, dan form input otomatis yang
+                mengisi NISN, kelas, serta wali kelas berdasarkan nama siswa.
+                Terdapat juga fitur autocomplete dan laporan per siswa, yang
+                memudahkan guru BK memantau akumulasi pelanggaran serta
+                melakukan validasi pengurangan poin sesuai kesepakatan. Dengan
+                demikian, halaman ini tidak hanya mencatat kehadiran, tetapi
+                juga menjadi alat pengawasan disiplin siswa secara digital dan
+                terstruktur.
+              </p>
+            </div>
+            <button
+              class="read-more-btn"
+              style="
+                background: none;
+                border: none;
+                color: var(--accent);
+                cursor: pointer;
+                font-weight: 600;
+              "
+            >
+              Baca Selengkapnya..
+            </button>
 
-      const N = Math.max(40, Math.floor((w*h)/90000)); // scale with viewport
-      const particles = [];
-      for(let i=0;i<N;i++){
-        particles.push({
-          x: Math.random()*w,
-          y: Math.random()*h,
-          r: Math.random()*1.8 + 0.6,
-          vx: (Math.random()-0.5)*0.15,
-          vy: (Math.random()-0.5)*0.15,
-          alpha: 0.12 + Math.random()*0.18
-        });
-      }
+            <ul class="features">
+              <li>Dokumentasi: Tampilan page Kehadiran.</li>
+            </ul>
+          </div>
+        </section>
+        <aside class="visual-right">
+          <div class="carousel" id="carousel-5">
+            <div
+              class="slide show"
+              style="background-image: url('/img/pkl/kehadiran-astra.png')"
+            ></div>
+            <div
+              class="slide"
+              style="background-image: url('/img/pkl/inputkehadiran-astra.png')"
+            ></div>
+            <div
+              class="slide"
+              style="background-image: url('/img/pkl/pdfkehadiran-astra.png')"
+            ></div>
+            <div
+              class="slide"
+              style="background-image: url('/img/pkl/excelkehadiran-astra.png')"
+            ></div>
+            <div
+              class="slide"
+              style="
+                background-image: url('/img/pkl/siswapdfkehadiran-astra.png');
+              "
+            ></div>
+          </div>
+          <div class="dots" data-carousel="carousel-5"></div>
+        </aside>
+      </div>
 
-      function draw(){
-        ctx.clearRect(0,0,w,h);
-        for(const p of particles){
-          p.x += p.vx;
-          p.y += p.vy;
-          // wrap
-          if(p.x < -10) p.x = w + 10;
-          if(p.x > w+10) p.x = -10;
-          if(p.y < -10) p.y = h + 10;
-          if(p.y > h+10) p.y = -10;
-          // glow
-          const g = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*6);
-          g.addColorStop(0, `rgba(255,80,80,${p.alpha*0.6})`);
-          g.addColorStop(0.5, `rgba(153,11,11,${p.alpha*0.15})`);
-          g.addColorStop(1, `rgba(153,11,11,0)`);
-          ctx.fillStyle = g;
-          ctx.beginPath();
-          ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-          ctx.fill();
-        }
-        requestAnimationFrame(draw);
-      }
-      draw();
-    })();
+      <!-- ---------- STAGE 6 ---------- -->
+      <div id="Validasi" class="stage-wrapper reveal">
+        <section class="stage">
+          <div class="story-left">
+            <span class="kicker">Validasi</span>
+            <h2 class="proj-title">Perancangan Validasi poin</h2>
+            <div
+              class="text-collapse"
+              style="max-height: 150px; overflow: hidden; transition: 0.5s"
+            >
+              <p class="lead">
+                Halaman Revisi Poin Siswa berfungsi sebagai tempat untuk
+                melihat, meninjau, dan memperbarui total poin pelanggaran siswa
+                berdasarkan data yang diperoleh dari catatan pelanggaran dan
+                kehadiran. Melalui halaman ini, guru atau tim tata tertib dapat
+                memantau siswa yang sudah atau belum menjalani tindak lanjut
+                seperti pengarahan, skorsing, hingga pengembalian ke orang tua.
+                Alur pengambilan data pada halaman Revisi Poin Siswa dimulai
+                dari controller Revisi, yang memanggil berbagai fungsi dalam
+                model M_revisi seperti get_pelanggaran(), get_kehadiran(),
+                get_treatment(), dan get_revisi() untuk mengambil data dari
+                tabel-tabel terkait di database. Data tersebut kemudian digabung
+                berdasarkan NISN dan dijumlahkan untuk menghitung total poin
+                pelanggaran setiap siswa. Setelah total poin diperoleh,
+                controller menjalankan logika kondisional untuk menentukan
+                kategori tindak lanjut secara otomatis sesuai rentang poin, lalu
+                mengirimkan hasil perhitungan ke view revisi.php agar
+                ditampilkan dalam bentuk kartu dinamis berisi informasi siswa,
+                poin, dan status tindak lanjut. Saat pengguna menandai checkbox
+                “Telah menyelesaikan treatment” atau menekan tombol Simpan
+                Revisi, data dikirim kembali ke controller melalui method
+                simpan_revisi(), yang akan memeriksa apakah data revisi sudah
+                ada menggunakan fungsi cek_revisi($nisn) di model, lalu
+                menyimpannya dengan insert_revisi() atau memperbaruinya lewat
+                update_revisi(). Setiap kali revisi disimpan, sistem otomatis
+                mengurangi poin sebesar 30 dan memperbarui kategori tindak
+                lanjut. Selain itu, controller juga dapat mengekspor data hasil
+                revisi ke dalam format PDF menggunakan library Dompdf. Dengan
+                demikian, seluruh proses data berjalan secara terpadu melalui
+                alur MVC (Model–View–Controller) yang menghubungkan database,
+                logika bisnis, dan tampilan pengguna secara dinamis dan efisien.
+              </p>
+            </div>
+            <button
+              class="read-more-btn"
+              style="
+                background: none;
+                border: none;
+                color: var(--accent);
+                cursor: pointer;
+                font-weight: 600;
+              "
+            >
+              Baca Selengkapnya..
+            </button>
+            <ul class="features">
+              <li>Dokumentasi: Tampilan page Validasi poin.</li>
+            </ul>
+          </div>
+        </section>
+        <aside class="visual-right">
+          <div class="carousel" id="carousel-6">
+            <div
+              class="slide"
+              style="background-image: url('/img/pkl/validasipoin-astra.png')"
+            ></div>
+            <div
+              class="slide"
+              style="background-image: url('/img/pkl/pdfvalidasi-astra.png')"
+            ></div>
+          </div>
+          <div class="dots" data-carousel="carousel-6"></div>
+        </aside>
+      </div>
+    </main>
 
-    /* ---------- REVEAL ON SCROLL ---------- */
-    (function(){
-      const reveals = document.querySelectorAll('.reveal');
-      const observer = new IntersectionObserver((entries)=>{
-        entries.forEach(e=>{
-          if(e.isIntersecting) e.target.classList.add('visible');
-        });
-      }, {threshold: 0.18});
-      reveals.forEach(r=>observer.observe(r));
-    })();
+    <footer>
+      © 2025 Reyna Aydhina Maritza — ASTRA Project (PKL Datasoft Solusi
+      Indonesia)
+    </footer>
 
-    /* ---------- CAROUSEL: automatic fade + zoom (per carousel) ---------- */
-    (function(){
-      const carousels = document.querySelectorAll('.carousel');
-      carousels.forEach(carousel=>{
-        const slides = Array.from(carousel.querySelectorAll('.slide'));
-        const id = carousel.id;
-        const dotsContainer = document.querySelector(`.dots[data-carousel="${id}"]`);
-        // create dots
-        slides.forEach((s,i)=>{
-          const dot = document.createElement('div');
-          dot.className = 'dot' + (i===0? ' active':'');
-          dot.addEventListener('click', ()=> goTo(i));
-          dotsContainer.appendChild(dot);
-        });
-        const dots = Array.from(dotsContainer.children);
-        let idx = 0;
-        let anim;
-        function show(i){
-          slides.forEach((s,si)=> s.classList.toggle('show', si===i));
-          dots.forEach((d,di)=> d.classList.toggle('active', di===i));
-        }
-        function goTo(i){
-          idx = i;
-          show(idx);
-        }
-        function next(){
-          idx = (idx+1) % slides.length;
-          show(idx);
-        }
-        // initial
-        show(0);
-        // autoplay with gentle randomization to feel organic
-        setInterval(next, 4200 + Math.floor(Math.random()*800));
-      });
-    })();
-
-    /* ---------- NAV ACTIVE (highlight simple) ---------- */
-    (function(){
-      const navLinks = document.querySelectorAll('nav.topbar a');
-      const sections = {
-        overview: document.getElementById('overview'),
-        story: document.getElementById('story'),
-        hasil: document.getElementById('hasil')
-      };
-      function highlight(){
-        const top = window.scrollY + innerHeight/3;
-        let active = 'overview';
-        if(top >= sections.story.offsetTop) active = 'story';
-        if(top >= sections.hasil.offsetTop) active = 'hasil';
-        navLinks.forEach(a=> a.classList.toggle('active', a.getAttribute('href') === '#'+active));
-      }
-      window.addEventListener('scroll', highlight, {passive:true});
-      highlight();
-    })();
-  </script>
-</body>
+    <script src="/js/script.js"></script>
+  </body>
 </html>
- 
